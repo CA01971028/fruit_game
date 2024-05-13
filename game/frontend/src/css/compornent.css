@@ -1,0 +1,52 @@
+/* 背景 */
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .top-half {
+    height: 30%;
+    background-color: #FFDAB9; /* 桃色 */
+  }
+  
+  .bottom-half {
+    height: 70%;
+    background-color: #FFE4B5; /* 薄い桃色 */
+  }
+  
+/* スコア表示 */
+  .score-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+ .score-svg {
+  display: block;
+}
+
+.red-circle {
+  fill: #CB7878;
+}
+
+
+/* ランキング表示 */
+.rounded-rectangle {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 200px;
+    height: 350px;
+    background-color: #BCBCBC;
+    border-radius: 10px; /* 四隅の丸み */
+    font-size: 34px;
+    text-align: center;
+ }
+
+ .rank {
+  font-size: 32px;
+  text-decoration: underline;
+ }
+
+ 
