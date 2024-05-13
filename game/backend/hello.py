@@ -5,7 +5,7 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def hello():
-    return '<p>Hello World</p>'
+    return '<p>Hello Flask</p>'
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
