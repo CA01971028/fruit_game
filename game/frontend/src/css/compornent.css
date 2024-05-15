@@ -1,4 +1,4 @@
-/* 背景 */
+/* background.tsx (背景) */
 .background-container {
     position: relative;
     width: 100%;
@@ -15,7 +15,7 @@
     background-color: #FFE4B5; /* 薄い桃色 */
   }
   
-/* スコア表示 */
+/* score.tsx (スコア表示) */
   .score-container {
     position: absolute;
     top: 0;
@@ -31,7 +31,7 @@
 }
 
 
-/* ランキング表示 */
+/* ranking.tsx (ランキング表示) */
 .rounded-rectangle {
     position: absolute;
     top: 40%;
@@ -49,4 +49,68 @@
   text-decoration: underline;
  }
 
- 
+/* next.css(次のブロック表示) */
+.circle {
+  position: absolute;
+  top: 1%;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #CB7878;
+  display: flex;
+  justify-content: center;
+}
+
+.triangle {
+  position: absolute;
+  top: 80px; /* Adjust the position as needed */
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid blue; /* Change to border-bottom for an inverted triangle */
+}
+
+.text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: black;
+}
+
+/* next_block.tsx (ブロックの一覧と進化先の表示) */
+
+.donut {
+  position: absolute;
+  top: 65%;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, whitesmoke, gray);
+}
+
+.donut::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px; /* 内円のサイズを調整 */
+  height: 100px;
+  background-color: #FFE4B5; /* 背景色が透明になるよう設定 */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rounded-rectangle {
+  position: absolute;
+  width: 700px;
+  height: 900px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  color: black;
+  font-size: 20px;
+}

@@ -2,8 +2,9 @@ import React from 'react'
 
 function next() {
   return (
-    <div>
-      
+    <div className="circle">
+      <div className="triangle"></div>
+      <span className="text">ネクスト</span>
     </div>
   )
 }

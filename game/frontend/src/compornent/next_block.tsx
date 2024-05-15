@@ -2,9 +2,7 @@ import React from 'react'
 
 function next_block() {
   return (
-    <div>
-      
-    </div>
+    <div className="donut"></div>
   )
 }
 
