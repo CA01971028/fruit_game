@@ -105,12 +105,15 @@
   transform: translate(-50%, -50%);
 }
 
-.rounded-rectangle {
+.basket {
   position: absolute;
-  width: 700px;
-  height: 900px;
+  top: 56%;
+  left: 50%;
+  width: 450px;
+  height: 500px;
   background-color: whitesmoke;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   color: black;
   font-size: 20px;
+  transform: translate(-50%, -50%);
 }
