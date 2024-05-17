@@ -5,6 +5,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Flask_account from './compornent/Flask_account';
 import Flask from './compornent/Flask';
 import { AuthProvider, useAuth } from './compornent/AuthContext';
+import './App.css'
+import './css/compornent.css'
+import Background from './compornent/background'
+import Score from './compornent/score'
+import Ranking from './compornent/ranking'
+import Next from './compornent/next'
+import Next_block from './compornent/next_block';
+import Rectangle from './compornent/rectangle';
 
 const App: React.FC = () => {
   return (
