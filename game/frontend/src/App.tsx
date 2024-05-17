@@ -2,9 +2,9 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
-import Flask_account from './Flask_account';
-import Flask from './Flask';
-import { AuthProvider, useAuth } from './AuthContext';
+import Flask_account from './compornent/Flask_account';
+import Flask from './compornent/Flask';
+import { AuthProvider, useAuth } from './compornent/AuthContext';
 
 const App: React.FC = () => {
   return (
