@@ -5,6 +5,8 @@ import Ranking from './Ranking'
 import Next from './Next'
 import Next_block from './Next_block';
 import Rectangle from './Rectangle';
+import Ball_display from './Ball_display'
+import Ball from './Ball'
 
 function Supot() {
   return (
@@ -15,6 +17,8 @@ function Supot() {
     <Next/>
     <Next_block/>
     <Rectangle/>
+    <Ball_display />
+    {/* <Ball /> */}
     </>
   )
 }
