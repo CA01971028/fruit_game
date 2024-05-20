@@ -12,12 +12,13 @@ import './css/compornent.css'
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<Flask_account />} />
-        <Route path="/login" element={<ProtectedRoute component={Supot} />} />
-      </Routes>
-    </AuthProvider>
+    // <AuthProvider>
+    //   <Routes>
+    //     <Route path="/" element={<Flask_account />} />
+    //     <Route path="/login" element={<ProtectedRoute component={Supot} />} />
+    //   </Routes>
+    // </AuthProvider>
+    <Supot />
   );
 };
 

@@ -16,8 +16,8 @@ CORS(app)
 
 # MySQL接続情報を設定
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'jugon'
-app.config['MYSQL_PASSWORD'] = '85208520'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'Hayate88131148'
 app.config['MYSQL_DB'] = 'fruit'
 
 mysql = MySQL(app)
