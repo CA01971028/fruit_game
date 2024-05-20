@@ -18,9 +18,15 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Flask_account />} />
-        <Route path="/login" element={<ProtectedRoute component={Flask} />} />
+        {/* <Route path="/" element={<Flask_account />} />
+        <Route path="/login" element={<ProtectedRoute component={Flask} />} /> */}
       </Routes>
+      <Background />
+      <Score />
+      <Ranking />
+      <Next />
+      <Next_block />
+      <Rectangle />
     </AuthProvider>
   );
 };
