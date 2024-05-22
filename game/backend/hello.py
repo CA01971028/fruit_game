@@ -41,16 +41,35 @@ def get_data():
     data = {'name': 'tarou', 'age': 30, 'job': 'developer'}
     return jsonify(data)
 # スコアの表示
-@app.route('/api/data/test',methods=['GET'])
-def get_dbdata():
+@app.route('/api/data/scores',methods=['GET'])
+def get_scores():
     cur = mysql.connection.cursor()
-    # SELECT文でscoreのみを取得
-    cur.execute("SELECT score FROM scores")
+    #SELECT文でscoreのみを取得
+    cur.execute("select score from scores order by score desc limit 3;")
     data = cur.fetchall()
     cur.close()
     
     scores = [row[0] for row in data]
-    return jsonify(scores=scores)
+    return jsonify(scores = scores)
+@app.route('/api/data/best',methods=['GET'])
+def get_score():
+    cur = mysql.connection.cursor()
+    #SELECT文でscoreのみを取得
+    cur.execute("SELECT MAX(score) AS max_score FROM scores;")
+    data = cur.fetchall()
+    cur.close()
+    # score = 
+    return jsonify(score = data)
+# @app.route('/api/data/test',methods=['GET'])
+# def get_dbdata():
+#     cur = mysql.connection.cursor()
+#     # SELECT文でscoreのみを取得
+#     cur.execute("SELECT score FROM scores")
+#     data = cur.fetchall()
+#     cur.close()
+    
+#     scores = [row[0] for row in data]
+#     return jsonify(scores=scores)
 
 @app.route('/submit',methods=['POST'])
 def submit():
