@@ -121,20 +121,3 @@
   font-size: 20px;
   transform: translate(-50%, -50%);
 }
-
-/* Ball_display.tsx (ボールの表示) */
-
-.ball-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
-}
-
-.hamster-image {
-  width: 300px; /* 画像の幅を調整します */
-  height: auto; /* 画像の高さを自動で調整します */
-  border-radius: 50%; /* 画像を円形にします */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 影を追加します */
-}
