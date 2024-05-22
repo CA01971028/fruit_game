@@ -1,10 +1,10 @@
 import Background from './background'
 import React from 'react'
 import Score from './score'
-import Ranking from './ranking'
+import Ranking from './Ranking'
 import Next from './next'
 import Next_block from './next_block';
-import Rectangle from './rectangle';
+import Rectangle from './Rectangle';
 
 function Supot() {
   return (

@@ -47,6 +47,7 @@
  .rank {
   font-size: 32px;
   text-decoration: underline;
+  line-height:2.5em;
  }
 
 /* next.css(次のブロック表示) */
@@ -107,11 +108,12 @@
 
 .basket {
   position: absolute;
-  top: 56%;
+  top: 57%;
   left: 50%;
   width: 450px;
   height: 500px;
-  background-color: whitesmoke;
+  border-radius:1.5% ;
+  background-color: rgb(255, 255, 255);
   /* border-radius: 20px; */
   color: black;
   font-size: 20px;
