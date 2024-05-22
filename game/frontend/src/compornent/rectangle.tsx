@@ -3,7 +3,6 @@ import owlImage from '../img/owl.png';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 
-
 function Rectangle() {
   const [owl_width,setOwl_width] = useState<number>(45)
   const width_move:number = 2;
