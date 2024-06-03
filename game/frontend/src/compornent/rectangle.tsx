@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import owlImage from '../img/owl.png';
-import hamsterImage from '../img/animal_hamster1.png';
+import hamsterImage from '../img/hamster.png';
 import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
