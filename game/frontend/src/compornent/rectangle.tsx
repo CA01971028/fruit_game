@@ -5,15 +5,16 @@ import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 
+
 function Rectangle() {
   const basketWidth = 450; // バスケットの幅 (ピクセル)
-  const basketHeight = 450; // バスケットの高さ (ピクセル)
+  const basketHeight = 500; // バスケットの高さ (ピクセル)
   const owlSize = 100; // フクロウのサイズ (ピクセル)
 
   // フクロウの現在の左端の位置を管理する状態
   const [owlLeft, setOwlLeft] = useState<number>((basketWidth - owlSize) / 2); // 初期位置をバスケットの中央に設定
   // ハムスターの状態を管理する状態。各ハムスターにはID、落下状態、および初期の左端の位置がある
-  const [hamsters, setHamsters] = useState<Array<{ id: number, drop: boolean, initialLeft: number | null }>>([{ id: 0, drop: false, initialLeft: null }]);
+  const [hamsters, setHamsters] = useState<Array<{ id: number, drop: boolean, initialLeft: number | null, topPosition: number, leftPosition: number,speed: number }>>([{ id: 0, drop: false, initialLeft: null, topPosition: 0, leftPosition: 0,speed: 0 }]);
   // 次のハムスターのIDを管理する状態
   const [nextHamsterId, setNextHamsterId] = useState(1); // 次のハムスターのID
   // フクロウの移動幅をピクセル単位に設定
@@ -29,18 +30,19 @@ function Rectangle() {
     setOwlLeft(prev => Math.min(basketWidth - owlSize + 25, prev + widthMove)); // 右端に制限 (フクロウの幅を考慮)
   };
 
-  // ハムスターを落下させる関数
-  const dropHamsterClick = () => {
-    setHamsters(prevHamsters => {
-      const updatedHamsters = [...prevHamsters];
-      const lastHamster = updatedHamsters[updatedHamsters.length - 1];
-      lastHamster.drop = true; // 最新のハムスターを落下させる
-      lastHamster.initialLeft = owlLeft; // 落下開始時の位置を記録
-      updatedHamsters.push({ id: nextHamsterId, drop: false, initialLeft: null }); // 新しいハムスターを追加
-      setNextHamsterId(nextHamsterId + 1);
-      return updatedHamsters;
-    });
-  };
+// ハムスターを落下させる関数
+const dropHamsterClick = () => {
+  setHamsters(prevHamsters => {
+    const updatedHamsters = [...prevHamsters];
+    const lastHamster = updatedHamsters[updatedHamsters.length - 1];
+    lastHamster.drop = true; // 最新のハムスターを落下させる
+    lastHamster.initialLeft = owlLeft; // 落下開始時の位置を記録
+    updatedHamsters.push({ id: nextHamsterId, drop: false, initialLeft: null, topPosition: 0, leftPosition: owlLeft,speed:0 }); // 新しいハムスターを追加
+    setNextHamsterId(nextHamsterId + 1);
+    return updatedHamsters;
+  });
+};
+
 
   return (
     <>
@@ -83,6 +85,8 @@ function Rectangle() {
           basketHeight={basketHeight}
           dropHamster={hamster.drop}
           image={hamsterImage}
+          id={hamster.id} 
+          hamsters={hamsters.map(h => ({ ...h, topPosition: h.drop ? (h.initialLeft ?? owlLeft) : owlLeft }))}
         />
       ))}
     </>
