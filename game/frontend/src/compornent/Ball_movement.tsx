@@ -33,8 +33,8 @@ export const useBallMovement = (
     const interval = setInterval(() => {
       setTopPosition(prev => {
         let newPosition = prev + speed;
-        if (newPosition >= basketHeight - 50) {
-          newPosition = basketHeight - 50;
+        if (newPosition >= basketHeight - 40) {
+          newPosition = basketHeight - 40;
           const newSpeed = -speed * bounceFactor;
           setSpeed(Math.abs(newSpeed) < minSpeed ? 0 : newSpeed);
           if (Math.abs(newSpeed) < minSpeed) clearInterval(interval);

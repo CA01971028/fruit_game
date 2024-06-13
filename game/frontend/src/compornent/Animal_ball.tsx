@@ -33,8 +33,8 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
       width={hamsterRadius * 2} // 画像の幅を設定（半径の2倍）
       sx={{
         position: 'absolute', // 絶対位置に配置
-        top: `calc(57% - 350px + 125px + ${Math.min(topPosition, basketHeight)}px)`, // ボールの縦方向の位置を計算
-        left: `calc(50% - 200px + ${owlLeft + 25}px)`, // フクロウの位置にオフセットを追加して左方向の位置を計算
+        top: `calc(${(topPosition + 125)}px)`, // ボールの縦方向の位置を計算
+        left: `calc(${owlLeft + 50}px)`, // フクロウの位置にオフセットを追加して左方向の位置を計算
         transform: 'translate(-50%, -50%)' // 水平方向と垂直方向の中央に位置を調整
       }}
     />

@@ -7,19 +7,20 @@ import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 
 function Rectangle() {
+  const screenWidth = window.innerWidth
   const basketWidth = 450;
   const basketHeight = 500;
   const owlSize = 100;
   const widthMove = 20;
-
-  const [owlLeft, setOwlLeft] = useState<number>((basketWidth - owlSize) / 2);
+  const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<Array<{ id: number, drop: boolean, top: number, left: number, stopped: boolean }>>([
-    { id: 0, drop: false, top: 0, left: (basketWidth - owlSize) / 2, stopped: false }
+    { id: 0, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
   ]);
   const [nextHamsterId, setNextHamsterId] = useState(1);
+  console.log(screenWidth)
 
   const leftClick = () => {
-    setOwlLeft(prev => Math.max(0 - 25, prev - widthMove));
+    setOwlLeft(prev => Math.max(0  - 25, prev - widthMove));
     setHamsters(prevHamsters =>
       prevHamsters.map(hamster =>
         hamster.drop ? hamster : { ...hamster, left: Math.max(0, hamster.left - widthMove) }
@@ -28,7 +29,7 @@ function Rectangle() {
   };
 
   const rightClick = () => {
-    setOwlLeft(prev => Math.min(basketWidth - owlSize + 25, prev + widthMove));
+    setOwlLeft(prev => Math.min(owlLeft + basketWidth / 2, prev + widthMove));
     setHamsters(prevHamsters =>
       prevHamsters.map(hamster =>
         hamster.drop ? hamster : { ...hamster, left: Math.min(basketWidth - owlSize, hamster.left + widthMove) }
@@ -56,7 +57,7 @@ function Rectangle() {
         alt="フクロウ"
         height={owlSize}
         width={owlSize}
-        sx={{ position: 'absolute', top: 'calc(57% - 350px)', left: `calc(50% - 225px + ${owlLeft}px)` }}
+        sx={{ position: 'absolute', top: '10px', left: `${owlLeft}px` }}
       />
 
       <Button variant="contained" sx={{ position: 'absolute', top: 30, left: '25%' }} onClick={leftClick}>
