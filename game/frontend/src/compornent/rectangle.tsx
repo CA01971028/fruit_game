@@ -2,26 +2,48 @@
 import React, { useState } from 'react';
 import owlImage from '../img/owl.png';
 import hamsterImage from '../img/hamster.png';
+import hamsterImage2 from '../img/animal_hamster6.png'
+import hamsterImage3 from '../img/animal_hamster5.png'
+import hamsterImage4 from '../img/animal_hamster4.png'
+import hamsterImage5 from '../img/animal_hamster3.png'
+import hamsterImage6 from '../img/animal_hamster2.png'
 import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 
+// ハムスターの型を定義
+interface Hamster {
+  id: number;
+  radius: number;
+  image: string; // 画像パスを追加
+}
+
+// ハムスターのリストを定義
+const hamster: Hamster[] = [
+  { id: 0, radius: 25, image: './img/hamster.png' },
+  { id: 1, radius: 50, image: './img/animal_hamster6.png' },
+  { id: 2, radius: 75, image: './img/animal_hamster5.png' },
+  { id: 3, radius: 100, image: './img/animal_hamster4.png' },
+  { id: 4, radius: 125, image: './img/animal_hamster3.png' },
+  { id: 5, radius: 150, image: './ima/animal_hamster2.png' },
+];
+
 function Rectangle() {
-  const screenWidth = window.innerWidth
-  const basketWidth = 450;
-  const basketHeight = 500;
-  const basketTop:Number = screenWidth - 225
-  const owlSize = 100;
-  const widthMove = 20;
+  const screenWidth:number = window.innerWidth
+  const basketWidth:number = 450;
+  const basketHeight:number = 500;
+  const basketTop:number = 0;
+  const basketleft:number = ((screenWidth/2) - 225);
+  const owlSize:number = 100;
+  const widthMove:number = 20;
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<Array<{ id: number, drop: boolean, top: number, left: number, stopped: boolean }>>([
     { id: 0, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
   ]);
   const [nextHamsterId, setNextHamsterId] = useState(1);
-  console.log(screenWidth)
 
   const leftClick = () => {
-    setOwlLeft(prev => Math.max(0  - 25, prev - widthMove));
+    setOwlLeft(prev => Math.max(basketleft - 25, prev - widthMove));
     setHamsters(prevHamsters =>
       prevHamsters.map(hamster =>
         hamster.drop ? hamster : { ...hamster, left: Math.max(0, hamster.left - widthMove) }
@@ -30,10 +52,10 @@ function Rectangle() {
   };
 
   const rightClick = () => {
-    setOwlLeft(prev => Math.min(owlLeft + basketWidth / 2, prev + widthMove));
+    setOwlLeft(prev => Math.min(basketleft + 375, prev + widthMove));
     setHamsters(prevHamsters =>
       prevHamsters.map(hamster =>
-        hamster.drop ? hamster : { ...hamster, left: Math.min(basketWidth - owlSize, hamster.left + widthMove) }
+        hamster.drop ? hamster : { ...hamster, left: Math.min(owlLeft + 25, hamster.left + widthMove) }
       )
     );
   };
