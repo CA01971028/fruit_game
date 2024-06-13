@@ -3,6 +3,7 @@ import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
 import Flask_account from './compornent/Flask_account';
 import Supot from './compornent/Supot'
+import Flask_addaccount from './compornent/Flask_addaccount';
 import { AuthProvider, useAuth } from './compornent/AuthContext';
 import './App.css'
 import './css/compornent.css'
@@ -15,6 +16,7 @@ const App: React.FC = () => {
     //   <Routes>
     //     <Route path="/" element={<Flask_account />} />
     //     <Route path="/login" element={<ProtectedRoute component={Supot} />} />
+    //     <Route path="/Flask_addaccount" element={<Flask_addaccount />} />
     //   </Routes>
     // </AuthProvider>
     <Supot />
