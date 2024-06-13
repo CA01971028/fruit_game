@@ -1,4 +1,3 @@
-// Flask_account.tsx
 import React, { useState } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
@@ -30,7 +29,7 @@ const Flask_account: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/submit', {
+      const response = await fetch('http://localhost:5000/submit_add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,31 +37,25 @@ const Flask_account: React.FC = () => {
         body: JSON.stringify({ data: [inputData, inputData2] }),
       });
       const responseData = await response.json();
-      console.log(responseData.name); // バックエンドからのレスポンスをコンソール表示
       if (responseData.success) {
         setLoggedIn(true);
-        navigate('/login');
-      } else {
         navigate('/');
+      } else {
+        navigate('/Flask_addaccount');
       }
     } catch (error) {
       console.error("送信中にエラーが発生しました:", error);
     }
-  };
-  // サインアップを押された際のイベント
-  const signupSubmit = () => {
-    navigate('/Flask_addaccount');
   };
   
   return (
     <form>
       <Container>
         <LoginCard>
-          <Typography variant="h5" gutterBottom>ログイン</Typography>
+          <Typography variant="h5" gutterBottom>サインアップ</Typography>
           <TextField variant="outlined" margin="normal" fullWidth label="ユーザー名" value={inputData} onChange={(e) => setInputData(e.target.value)} />
           <TextField variant="outlined" margin="normal" fullWidth label="パスワード" type="password" value={inputData2} onChange={(e) => setInputData2(e.target.value)} />
-          <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>ログイン</Button>
-          <Button variant="contained" color="primary" fullWidth style={{ marginTop: '16px' }} onClick={signupSubmit}>サインアップ</Button>
+          <Button variant="contained" color="primary" fullWidth onClick={handleSubmit}>サインアップ</Button>
         </LoginCard>
       </Container>
     </form>
