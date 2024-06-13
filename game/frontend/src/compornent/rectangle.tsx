@@ -10,6 +10,7 @@ function Rectangle() {
   const screenWidth = window.innerWidth
   const basketWidth = 450;
   const basketHeight = 500;
+  const basketTop:Number = screenWidth - 225
   const owlSize = 100;
   const widthMove = 20;
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
