@@ -6,6 +6,7 @@ import { useBallMovement } from './Ball_movement'; // カスタムフックを�
 // Animal_ballコンポーネントが受け取るpropsの型を定義
 interface AnimalBallProps {
   owlLeft: number;
+  basketWidth: number;
   basketHeight: number;
   dropHamster: boolean;
   image: string;
@@ -40,5 +41,6 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
     />
   );
 }
+
 
 export default Animal_ball; // Animal_ballコンポーネントをエクスポート
