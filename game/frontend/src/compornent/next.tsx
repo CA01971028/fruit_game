@@ -35,7 +35,11 @@ function Next() {
       setCurrent(hamsterKind)
       setCurrentSize(hamsterSize)
     }
-
+    const rectangleProps = {
+      getRandomNumber,
+      Changecurrent,
+      current
+    };
 
   return (
     <>
@@ -59,7 +63,7 @@ function Next() {
         <span className="text">ネクスト</span>
         <Box component="span"className="text"sx={{ position: 'absolute', top: '230px', left: '50%' }}>現在</Box>
       </div>
-      <Rectangle getRandomNumber={getRandomNumber} Changecurrent = {Changecurrent} current={current}/>
+      <Rectangle {...rectangleProps}/>
     </>
   );
 }
