@@ -6,7 +6,19 @@ import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 
-function Rectangle() {
+import ham1 from '../img/hamster.png';
+import ham2 from '../img/animal_hamster6.png';
+import ham3 from '../img/animal_hamster5.png';
+import ham4 from '../img/animal_hamster4.png';
+
+
+interface RectangleProps {
+  getRandomNumber: () => void;
+  Changecurrent: () => void;
+  current:string;
+}
+
+const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,current}) =>  {
   const screenWidth = window.innerWidth
   const basketWidth = 450;
   const basketHeight = 500;
@@ -18,7 +30,6 @@ function Rectangle() {
     { id: 0, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
   ]);
   const [nextHamsterId, setNextHamsterId] = useState(1);
-  console.log(screenWidth)
 
   const leftClick = () => {
     setOwlLeft(prev => Math.max(0  - 25, prev - widthMove));
@@ -44,6 +55,8 @@ function Rectangle() {
       updatedHamsters[updatedHamsters.length - 1] = { ...updatedHamsters[updatedHamsters.length - 1], drop: true };
       updatedHamsters.push({ id: nextHamsterId, drop: false, top: 0, left: owlLeft, stopped: false });
       setNextHamsterId(nextHamsterId + 1);
+      Changecurrent()
+      getRandomNumber()
       return updatedHamsters;
     });
   };
@@ -83,7 +96,7 @@ function Rectangle() {
           owlLeft={hamster.drop ? hamster.left : owlLeft}
           basketHeight={basketHeight}
           dropHamster={hamster.drop}
-          image={hamsterImage}
+          image={current}
           id={hamster.id}
           hamsters={hamsters}
         />

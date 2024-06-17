@@ -25,8 +25,7 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
 
   return (
     // MUIのBoxコンポーネントを使用して画像を表示
-    <Box
-      component="img" // 画像コンポーネントとして使用
+    <Box component="img" // 画像コンポーネントとして使用
       src={image} // 画像ソースをプロパティとして受け取る
       alt="ハムスター" // 画像の代替テキスト
       height={hamsterRadius * 2} // 画像の高さを設定（半径の2倍）
