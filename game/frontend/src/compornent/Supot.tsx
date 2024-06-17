@@ -15,7 +15,7 @@ function Supot() {
     <Ranking/>
     <Next/>
     <Next_block/>
-    <Rectangle/>
+    {/* <Rectangle/> */}
     {/* <Ball /> */}
     </>
   )

@@ -2,6 +2,9 @@
 py -3 -m venv venv
 venv\Scripts\activate
 pip install Flask
+pip install flask_mysqldb
+pip install flask-cors
+pip install cryptography
 
 $env:FLASK_APP = "hello"
 flask run
