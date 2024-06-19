@@ -44,10 +44,11 @@ function Rectangle() {
   const basketTop:number = 0; // バスケットの上位置
   const basketleft:number = ((screenWidth/2) - 225); // バスケットの左位置
   const owlSize:number = 100; // フクロウのサイズ
+  const hamsterradius:number = 25;
   const widthMove:number = 20; // 移動量
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2); // フクロウの初期位置の状態
-  const [hamsters, setHamsters] = useState<Array<{ id: number, drop: boolean, top: number, left: number, stopped: boolean }>>([
-    { id: 0, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
+  const [hamsters, setHamsters] = useState<Array<{ id: number, radius:number, drop: boolean, top: number, left: number, stopped: boolean }>>([
+    { id: 0, radius:hamsterradius, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
   ]); // ハムスターの状態を管理
   const [nextHamsterId, setNextHamsterId] = useState(1); // 次のハムスターのIDを管理
 
@@ -76,7 +77,7 @@ const dropHamsterClick = () => {
   setHamsters(prevHamsters => {
     const updatedHamsters = [...prevHamsters];
     updatedHamsters[updatedHamsters.length - 1] = { ...updatedHamsters[updatedHamsters.length - 1], drop: true };
-    updatedHamsters.push({ id: nextHamsterId, drop: false, top: 0, left: owlLeft, stopped: false });
+    updatedHamsters.push({ id: nextHamsterId, radius: hamsterradius, drop: false, top: 0, left: owlLeft, stopped: false });
     setNextHamsterId(nextHamsterId + 1);
     return updatedHamsters;
   });
@@ -122,6 +123,7 @@ const dropHamsterClick = () => {
           image={hamsterImage}
           id={hamster.id}
           hamsters={hamsters}
+          radius={hamsterradius}
         />
       ))} // 各ハムスターのAnimal_ballコンポーネントをレンダリング
     </>
