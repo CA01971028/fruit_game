@@ -13,25 +13,24 @@ import { Box } from '@mui/material'; // Material UIのBoxコンポーネント�
 import Button from '@mui/material/Button'; // Material UIのButtonコンポーネントのインポート
 
 // ハムスターの型を定義
-interface Hamster {
+type Hamsters = {
   id: number;
   radius: number;
   image: string; // 画像パスを追加
   drop: boolean;
   top: number;
   left: number;
-  speed: number;
   stopped: boolean; // ハムスターの停止状態を追加
 }
 
 // ハムスターのリストを定義
-const initialHamsters: Hamster[] = [
-  { id: 0, radius: 25,  image: 'hamsterImage1', drop: false, top: 0, left: 0, speed: 0, stopped: false },
-  { id: 1, radius: 50,  image: 'hamsterImage2', drop: false, top: 0, left: 0, speed: 0, stopped: false },
-  { id: 2, radius: 75,  image: 'hamsterImage3', drop: false, top: 0, left: 0, speed: 0, stopped: false },
-  { id: 3, radius: 100, image: 'hamsterImage4', drop: false, top: 0, left: 0, speed: 0, stopped: false },
-  { id: 4, radius: 125, image: 'hamsterImage5', drop: false, top: 0, left: 0, speed: 0, stopped: false },
-  { id: 5, radius: 150, image: 'hamsterImage6', drop: false, top: 0, left: 0, speed: 0, stopped: false },
+const Hamsters : Hamsters[] = [
+  { id: 0, radius: 25,  image: 'hamsterImage1', drop: false, top: 0, left: 0, stopped: false },
+  { id: 1, radius: 50,  image: 'hamsterImage2', drop: false, top: 0, left: 0, stopped: false },
+  { id: 2, radius: 75,  image: 'hamsterImage3', drop: false, top: 0, left: 0, stopped: false },
+  { id: 3, radius: 100, image: 'hamsterImage4', drop: false, top: 0, left: 0, stopped: false },
+  { id: 4, radius: 125, image: 'hamsterImage5', drop: false, top: 0, left: 0, stopped: false },
+  { id: 5, radius: 150, image: 'hamsterImage6', drop: false, top: 0, left: 0, stopped: false },
 ];
 
 
@@ -82,7 +81,6 @@ const dropHamsterClick = () => {
     return updatedHamsters;
   });
 };
-
 
   // コンポーネントのレンダリング
   return (
