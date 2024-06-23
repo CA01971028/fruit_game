@@ -7,12 +7,13 @@ interface AnimalBallProps {
   owlLeft: number;
   basketHeight: number;
   dropHamster: boolean;
-  image: string;
+  image: string[];
   id: number;
   radius: number;
-  hamsters: Array<{ id: number, radius: number, drop: boolean, top: number, left: number, stopped: boolean }>;
+  hamsters: { [key: number]: { id: number, radius: number, drop: boolean, top: number, left: number, stopped: boolean } };
 }
 
+// カスタムフック: ボールの動きを管理
 export const useBallMovement = (
   initialTop: number,
   initialSpeed: number,
@@ -20,35 +21,45 @@ export const useBallMovement = (
   basketHeight: number,
   dropHamster: boolean,
   id: number,
-  hamsters: Array<{ id: number, radius: number, drop: boolean, top: number, left: number, stopped: boolean }>,
+  hamsters: { [key: number]: { id: number, radius: number, drop: boolean, top: number, left: number, stopped: boolean } },
   owlLeft: number,
 ) => {
   const [topPosition, setTopPosition] = useState(initialTop);
   const [speed, setSpeed] = useState(initialSpeed);
-  const gravity = 0.7;
-  const bounceFactor = 0.2;
-  const minSpeed = 0.4;
+  const gravity = 0.7; // 重力の定数
+  const bounceFactor = 0.2; // バウンドの定数
+  const minSpeed = 0.4; // 最小速度
 
   useEffect(() => {
-    if (!dropHamster) return;
+    if (!dropHamster) return; // ハムスターが落下中でなければ何もしない
 
     const interval = setInterval(() => {
       setTopPosition(prev => {
         let newPosition = prev + speed;
-        if (newPosition >= basketHeight - 40) {
-          newPosition = basketHeight - 40;
+        if (newPosition >= basketHeight - 35) {
+          newPosition = basketHeight - 35;
           const newSpeed = -speed * bounceFactor;
           setSpeed(Math.abs(newSpeed) < minSpeed ? 0 : newSpeed);
-          if (Math.abs(newSpeed) < minSpeed) clearInterval(interval);
+          if (Math.abs(newSpeed) < minSpeed) clearInterval(interval); // 最小速度以下なら停止
         }
         return newPosition;
       });
 
       setSpeed(prev => prev + gravity);
-    },intervalTime);
+    }, intervalTime);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // クリーンアップ関数
   }, [dropHamster, speed, intervalTime, basketHeight, id, owlLeft, hamsters]);
+
+  // 辞書を更新してハムスターの位置を保存
+  useEffect(() => {
+    if (dropHamster) {
+      const updatedHamsters = { ...hamsters };
+      updatedHamsters[id].top = topPosition;
+      updatedHamsters[id].left = owlLeft;
+      // console.log(`ハムスター ${id} の位置 - top: ${updatedHamsters[id].top}, left: ${updatedHamsters[id].left}`);
+    }
+  }, [topPosition, dropHamster, hamsters, id]);
 
   return { topPosition, hamsters };
 };
@@ -59,8 +70,7 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
   const { owlLeft, basketHeight, dropHamster, image, id, hamsters, radius } = props;
   // ここでコンポーネントのロジックを書く
   // カスタムフックを使用してボールの位置を取得
-  const { topPosition } = useBallMovement(0, 2, 50, basketHeight, dropHamster, id,
-    hamsters.map(h => ({ ...h, speed: 0, topPosition: h.top, leftPosition: h.left, stopped: h.stopped })), owlLeft);
+  const { topPosition } = useBallMovement(0, 2, 50, basketHeight, dropHamster, id, hamsters, owlLeft);
 
   return (
     <div
@@ -72,7 +82,7 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
       }}
     >
       <img
-        src={image}
+        src={image[0]}
         alt="ハムスター"
         height={radius * 2}
         width={radius * 2}
