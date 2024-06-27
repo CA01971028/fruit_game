@@ -12,12 +12,18 @@ import Start_display from './compornent/Start_display'
 
 const App: React.FC = () => {
   return (
+    // <AuthProvider>
+    //   <Routes>
+    //     <Route path="/" element={<Start_display />} />
+    //     <Route path="/account" element={<Flask_account />} />
+    //     <Route path="/login" element={<ProtectedRoute component={Supot} />} />
+    //     <Route path="/Flask_addaccount" element={<Flask_addaccount />} />
+    //   </Routes>
+    // </AuthProvider>
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Start_display />} />
-        <Route path="/account" element={<Flask_account />} />
-        <Route path="/login" element={<ProtectedRoute component={Supot} />} />
-        <Route path="/Flask_addaccount" element={<Flask_addaccount />} />
+        <Route path="/account" element={<Supot />} />
       </Routes>
     </AuthProvider>
     // <Supot />

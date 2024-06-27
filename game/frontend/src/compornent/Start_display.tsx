@@ -14,19 +14,12 @@ import ham6 from '../img/animal_hamster2.png';
 
 
 const App: React.FC = () => {
-  const theme = useTheme();
   const hamImages = [ham1, ham2, ham3, ham4, ham5, ham6];
-  let [leftmrge,setLeftmrge] = useState<number>(200)
   const navigate = useNavigate();
 
   const onclick = ()=>{
     navigate('/account');
   }
-  // while (leftmrge) {
-  //   leftmrge += 1; // leftmrgeの値を1ずつ増加させる
-  //   setLeftmrge(leftmrge); // leftmrgeの値を更新する
-  // }
-  
 
   return (
     <>
@@ -58,7 +51,7 @@ const App: React.FC = () => {
                   marginTop:'-35%;',
                   marginLeft:'40%',
                   width:'200px;'
-                  }} variant="contained" onClick={onclick}>ログイン</Button>
+                  }} variant="contained" onClick={onclick}>START</Button>
     </>
   );
 };
