@@ -48,8 +48,14 @@ const Hamsters : Hamster[] = [
   { id: 5, radius: 150, image: 'hamsterImage6', drop: false, top: 0, left: 0, stopped: false },
 ];
 
+interface RectangleProps {
+  getRandomNumber: () => void;
+  Changecurrent: () => void;
+  current:string;
+}
+
 // Rectangleコンポーネントを定義
-function Rectangle() {
+const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,current}) => {
   const screenWidth:number = window.innerWidth; // 画面の幅を取得
   const basketWidth:number = 450; // バスケットの幅
   const basketHeight:number = 500; // バスケットの高さ
@@ -108,6 +114,8 @@ function Rectangle() {
       // 新しいハムスターを追加
       updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: hamsterImage, drop: false, top: 0, left: owlLeft, stopped: false };
       setNextHamsterId(nextHamsterId + 1);
+      Changecurrent()
+      getRandomNumber()
       return updatedHamsters;
     });
   };
@@ -147,7 +155,7 @@ function Rectangle() {
           owlLeft={hamster.drop ? hamster.left : owlLeft}
           basketHeight={basketHeight}
           dropHamster={hamster.drop}
-          image={hamsterImages}
+          image={current}
           id={hamster.id}
           hamsters={hamsters}
           radius={hamster.radius}

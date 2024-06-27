@@ -8,7 +8,7 @@ interface AnimalBallProps {
   owlLeft: number;
   basketHeight: number;
   dropHamster: boolean;
-  image: string[];
+  image: string;
   id: number;
   radius: number;
   hamsters: { [key: number]: Hamster },

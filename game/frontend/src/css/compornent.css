@@ -86,8 +86,8 @@
 
 .donut {
   position: absolute;
-  top: 65%;
-  right: 0;
+  top: 60%;
+  right: 50px;
   width: 200px;
   height: 200px;
   border-radius: 50%;
@@ -120,4 +120,114 @@
   color: black;
   font-size: 20px;
   transform: translate(-50%, -50%) translateX(15px);
+}
+
+/* Allowコンポーネント曲線矢印 */
+.curved-arrow {
+  width: 200px;
+  height: 200px;
+  border-top: 5px solid #593636;
+  border-right: 0px solid #000;
+  border-left: 0px solid #000;
+  border-radius: 50% 50% 0 0%;
+  animation: arrow-curve 3s infinite linear;
+}
+
+@keyframes arrow-curve {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+/* スタート画面*/
+.ham0 {
+  animation: ham0 6s infinite;
+  animation-delay: 0s;
+}
+
+.ham1 {
+  animation: ham1 6s infinite;
+  animation-delay: 6s;
+}
+
+.ham2 {
+  animation: ham2 6s infinite;
+  animation-delay: 12s;
+}
+
+.ham3 {
+  animation: ham3 6s infinite;
+  animation-delay: 18s;
+}
+
+.ham4 {
+  animation: ham4 6s infinite;
+  animation-delay: 24s;
+}
+
+.ham5 {
+  animation: ham5 6s infinite;
+  animation-delay: 30s;
+}
+.hamtotal {
+  margin-top: 8%;
+  margin-left: 27%;
+  margin-right: auto;
+  width: 100vh; /* または任意の幅を指定 */
+  display: block; /* これはブロック要素であることを確認 */
+}
+@keyframes ham0 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham1 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham2 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham3 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham4 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham5 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+.mei{
+  font-size:6em;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-left: 30%;
 }
