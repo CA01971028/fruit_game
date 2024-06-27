@@ -28,7 +28,7 @@ const hamsterImages = [
 ];
 
 // ハムスターの型を定義
-type Hamster = {
+export type Hamster = {
   id: number;
   radius: number;
   image: string; // 画像パスを追加
@@ -39,14 +39,14 @@ type Hamster = {
 }
 
 // ハムスターの初期リストを定義
-// const Hamsters : Hamster[] = [
-//   { id: 0, radius: 25,  image: 'hamsterImage1', drop: false, top: 0, left: 0, stopped: false },
-//   { id: 1, radius: 50,  image: 'hamsterImage2', drop: false, top: 0, left: 0, stopped: false },
-//   { id: 2, radius: 75,  image: 'hamsterImage3', drop: false, top: 0, left: 0, stopped: false },
-//   { id: 3, radius: 100, image: 'hamsterImage4', drop: false, top: 0, left: 0, stopped: false },
-//   { id: 4, radius: 125, image: 'hamsterImage5', drop: false, top: 0, left: 0, stopped: false },
-//   { id: 5, radius: 150, image: 'hamsterImage6', drop: false, top: 0, left: 0, stopped: false },
-// ];
+const Hamsters : Hamster[] = [
+  { id: 0, radius: 25,  image: 'hamsterImage1', drop: false, top: 0, left: 0, stopped: false },
+  { id: 1, radius: 50,  image: 'hamsterImage2', drop: false, top: 0, left: 0, stopped: false },
+  { id: 2, radius: 75,  image: 'hamsterImage3', drop: false, top: 0, left: 0, stopped: false },
+  { id: 3, radius: 100, image: 'hamsterImage4', drop: false, top: 0, left: 0, stopped: false },
+  { id: 4, radius: 125, image: 'hamsterImage5', drop: false, top: 0, left: 0, stopped: false },
+  { id: 5, radius: 150, image: 'hamsterImage6', drop: false, top: 0, left: 0, stopped: false },
+];
 
 // Rectangleコンポーネントを定義
 function Rectangle() {

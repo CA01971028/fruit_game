@@ -1,6 +1,7 @@
 // Animal_ball.tsx
 import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material'; // MUIのBoxコンポーネントをインポート
+import { Hamster } from './Rectangle'; // Hamsterの型をインポート
 
 // Animal_ballコンポーネントが受け取るpropsの型を定義
 interface AnimalBallProps {
@@ -10,7 +11,7 @@ interface AnimalBallProps {
   image: string[];
   id: number;
   radius: number;
-  hamsters: { [key: number]: { id: number, radius: number, drop: boolean, top: number, left: number, stopped: boolean } };
+  hamsters: { [key: number]: Hamster },
 }
 
 // カスタムフック: ボールの動きを管理
@@ -21,11 +22,12 @@ export const useBallMovement = (
   basketHeight: number,
   dropHamster: boolean,
   id: number,
-  hamsters: { [key: number]: { id: number, radius: number, drop: boolean, top: number, left: number, stopped: boolean } },
+  hamsters: { [key: number]: Hamster },
   owlLeft: number,
 ) => {
   const [topPosition, setTopPosition] = useState(initialTop);
   const [speed, setSpeed] = useState(initialSpeed);
+  const [hasDropped, setHasDropped] = useState(false); // 落下が完了したかどうかの状態
   const gravity = 0.7; // 重力の定数
   const bounceFactor = 0.2; // バウンドの定数
   const minSpeed = 0.4; // 最小速度
@@ -40,7 +42,10 @@ export const useBallMovement = (
           newPosition = basketHeight - 35;
           const newSpeed = -speed * bounceFactor;
           setSpeed(Math.abs(newSpeed) < minSpeed ? 0 : newSpeed);
-          if (Math.abs(newSpeed) < minSpeed) clearInterval(interval); // 最小速度以下なら停止
+          if (Math.abs(newSpeed) < minSpeed) {
+            clearInterval(interval); // 最小速度以下なら停止
+            setHasDropped(true); // 落下が完了したことを記録
+          }
         }
         return newPosition;
       });
@@ -49,7 +54,7 @@ export const useBallMovement = (
     }, intervalTime);
 
     return () => clearInterval(interval); // クリーンアップ関数
-  }, [dropHamster, speed, intervalTime, basketHeight, id, owlLeft, hamsters]);
+  }, [dropHamster, speed, intervalTime, basketHeight]);
 
   // 辞書を更新してハムスターの位置を保存
   useEffect(() => {
@@ -57,9 +62,10 @@ export const useBallMovement = (
       const updatedHamsters = { ...hamsters };
       updatedHamsters[id].top = topPosition;
       updatedHamsters[id].left = owlLeft;
-      // console.log(`ハムスター ${id} の位置 - top: ${updatedHamsters[id].top}, left: ${updatedHamsters[id].left}`);
+      updatedHamsters[id].stopped = hasDropped;
+      console.log(`Hamster Key ${id} - Position: Top ${topPosition}, Left ${owlLeft}`);
     }
-  }, [topPosition, dropHamster, hamsters, id]);
+  }, [topPosition, hasDropped, dropHamster, hamsters, id, owlLeft]);
 
   return { topPosition, hamsters };
 };
