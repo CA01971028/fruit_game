@@ -14,6 +14,11 @@ interface AnimalBallProps {
   hamsters: { [key: number]: Hamster },
 }
 
+// 距離計算関数
+const calculateDistance = (x1: number, y1: number, x2: number, y2: number) => {
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+};
+
 // カスタムフック: ボールの動きを管理
 export const useBallMovement = (
   initialTop: number,
@@ -24,6 +29,7 @@ export const useBallMovement = (
   id: number,
   hamsters: { [key: number]: Hamster },
   owlLeft: number,
+  radius:number
 ) => {
   const [topPosition, setTopPosition] = useState(initialTop);
   const [speed, setSpeed] = useState(initialSpeed);
@@ -51,6 +57,18 @@ export const useBallMovement = (
       });
 
       setSpeed(prev => prev + gravity);
+
+      // 衝突判定と処理
+      Object.keys(hamsters).forEach(key => {
+        const otherHamster = hamsters[parseInt(key)];
+        if (otherHamster.id !== id && (otherHamster.drop || otherHamster.stopped)) {
+          const distance = calculateDistance(owlLeft, topPosition, otherHamster.left, otherHamster.top);
+          if (distance < radius + otherHamster.radius) {
+            // 衝突している場合は速度を反転させる
+            setSpeed(prev => -prev);
+          }
+        }
+      });
     }, intervalTime);
 
     return () => clearInterval(interval); // クリーンアップ関数
@@ -76,7 +94,7 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
   const { owlLeft, basketHeight, dropHamster, image, id, hamsters, radius } = props;
   // ここでコンポーネントのロジックを書く
   // カスタムフックを使用してボールの位置を取得
-  const { topPosition } = useBallMovement(0, 2, 50, basketHeight, dropHamster, id, hamsters, owlLeft);
+  const { topPosition } = useBallMovement(0, 2, 50, basketHeight, dropHamster, id, hamsters, owlLeft, radius);
 
   return (
     <div
@@ -88,7 +106,7 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
       }}
     >
       <img
-        src={image[0]}
+        src={image[id % image.length]}
         alt="ハムスター"
         height={radius * 2}
         width={radius * 2}
