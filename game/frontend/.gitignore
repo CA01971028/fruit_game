@@ -12,6 +12,10 @@
 /build
 venv/
 
+# virtual
+venv
+venv/
+
 # misc
 .DS_Store
 .env.local

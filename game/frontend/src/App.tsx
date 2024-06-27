@@ -20,14 +20,14 @@ const App: React.FC = () => {
     //     <Route path="/Flask_addaccount" element={<Flask_addaccount />} />
     //   </Routes>
     // </AuthProvider>
+    // <Supot />
+    // <Start_display/>
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Start_display />} />
         <Route path="/account" element={<Supot />} />
       </Routes>
     </AuthProvider>
-    // <Supot />
-    // <Start_display/>
   );
 };
 
