@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material'; // MUIのBoxコンポーネントをインポート
 import { Hamster } from './Rectangle'; // Hamsterの型をインポート
 
+
 // Animal_ballコンポーネントが受け取るpropsの型を定義
 interface AnimalBallProps {
   owlLeft: number;
   basketHeight: number;
   dropHamster: boolean;
-  image: string;
+  image: string[];
   id: number;
   radius: number;
   hamsters: { [key: number]: Hamster },
