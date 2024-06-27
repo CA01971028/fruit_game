@@ -55,21 +55,34 @@ export const useBallMovement = (
           }
         }
         return newPosition;
+        console.log()
       });
 
       setSpeed(prev => prev + gravity);
 
       // 衝突判定と処理
+      let collisionDetected = false;
       Object.keys(hamsters).forEach(key => {
         const otherHamster = hamsters[parseInt(key)];
         if (otherHamster.id !== id && (otherHamster.drop || otherHamster.stopped)) {
           const distance = calculateDistance(owlLeft, topPosition, otherHamster.left, otherHamster.top);
           if (distance < radius + otherHamster.radius) {
-            // 衝突している場合は速度を反転させる
-            setSpeed(prev => -prev);
+            // 衝突している場合の処理
+            console.log("衝突")
+            collisionDetected = true;
+            setSpeed(0); // 衝突時に速度をゼロに設定
+            setHasDropped(true); // 衝突時に落下完了と設定
+            // 衝突したハムスター同士を移動させる処理
+            // 次に、衝突していたらお互いのフルーツを反対方向に遠ざけるように加速度を加算します。
+            // そのためには、どの方向にフルーツを弾き飛ばすのか決めるため、まずはお互いの角度を求める必要がありますが、これも簡単で関数１つ呼び出すだけで角度が求まります。角度がわかったら、あとはcos、tanでx,y座標が求まります。
           }
         }
       });
+
+      if (collisionDetected) {
+        clearInterval(interval); // 衝突時にインターバルをクリア
+      }
+
     }, intervalTime);
 
     return () => clearInterval(interval); // クリーンアップ関数
