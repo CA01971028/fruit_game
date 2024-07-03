@@ -130,6 +130,7 @@ export const useBallMovement = (
       updatedHamsters[id].top = topPosition;
       updatedHamsters[id].left = owlLeft;
       updatedHamsters[id].stopped = hasDropped;
+      // console.log(`Hamster Key ${id} - Position: Top ${topPosition}, Left ${owlLeft}`);
     }
   }, [topPosition, owlLeft, hasDropped, dropHamster, hamsters, id]);
 

@@ -96,6 +96,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
   // マウスクリック時の処理
   const handleMouseClick = () => {
     setHamsters(prevHamsters => {
+      
       const updatedHamsters = { ...prevHamsters };
   
       // 最後のハムスターを落とす
@@ -104,16 +105,24 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
       // 更新されたハムスターの位置を設定
       updatedHamsters[lastHamsterId].left = owlLeft;
       // 新しいハムスターを追加
-      updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: hamsterImages[nextHamsterId % hamsterImages.length], drop: false, top: 0, left: owlLeft, stopped: false };
+      updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false };
       setNextHamsterId(nextHamsterId + 1);
       Changecurrent();
       getRandomNumber();
-  
-      // ログを追加してデバッグ情報を確認
-      console.log("Updated Hamsters:", updatedHamsters);
-      console.log(`Next Hamster ID: ${nextHamsterId}`);
-      console.log("left",{owlLeft})
-      
+      // switch (current) {
+      //   case ham1:
+      //     setNextHamsterId(0);
+      //     break;
+      //   case ham2:
+      //      setNextHamsterId(1);
+      //      break;
+      //   case ham3:
+      //     setNextHamsterId(2);
+      //     break;
+      //   case ham4:
+      //     setNextHamsterId(3);
+      //     break;
+      // }
       return updatedHamsters;
     });
   };
@@ -147,7 +156,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
           owlLeft={hamster.drop ? hamster.left : owlLeft}
           basketHeight={basketHeight}
           dropHamster={hamster.drop}
-          image={hamsterImages}
+          image={[hamster.image]}
           id={hamster.id}
           hamsters={hamsters}
           radius={hamster.radius}
