@@ -1,3 +1,4 @@
+// Rectangle.tsx
 // 必要なモジュールと画像のインポート
 import React, { useState, useEffect } from 'react';
 import owlImage from '../img/owl.png'; // フクロウの画像
@@ -12,8 +13,17 @@ import { Box } from '@mui/material'; // Material UIのBoxコンポーネント�
 
 // ハムスターの辞書型を定義
 type HamsterDictionary = {
-  [key: number]: Hamster;
+  [key: number]: { 
+    id: number;
+    radius: number;
+    image: string;
+    drop: boolean;
+    top: number;
+    left: number;
+    stopped: boolean;
+  };
 }
+
 
 // ハムスターのリストを定義
 const hamsterImages = [
@@ -88,6 +98,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
     setHamsters(prevHamsters => {
       
       const updatedHamsters = { ...prevHamsters };
+  
       // 最後のハムスターを落とす
       const lastHamsterId = Object.keys(updatedHamsters).length - 1;
       updatedHamsters[lastHamsterId].drop = true;
@@ -101,7 +112,8 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
       return updatedHamsters;
     });
   };
-
+  
+  
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('click', handleMouseClick);
@@ -129,6 +141,8 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
           key={hamster.id}
           owlLeft={hamster.drop ? hamster.left : owlLeft}
           basketHeight={basketHeight}
+          basketLeft={basketleft}
+          basketWidth={basketWidth}
           dropHamster={hamster.drop}
           image={[hamster.image]}
           id={hamster.id}

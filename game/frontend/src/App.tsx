@@ -24,8 +24,8 @@ const App: React.FC = () => {
     // <Start_display/>
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Start_display />} />
-        <Route path="/account" element={<Supot />} />
+        {/* <Route path="/" element={<Start_display />} /> */}
+        <Route path="/" element={<Supot />} />
       </Routes>
     </AuthProvider>
   );
