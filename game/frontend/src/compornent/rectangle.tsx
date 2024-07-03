@@ -98,20 +98,6 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
       setNextHamsterId(nextHamsterId + 1);
       Changecurrent();
       getRandomNumber();
-      // switch (current) {
-      //   case ham1:
-      //     setNextHamsterId(0);
-      //     break;
-      //   case ham2:
-      //      setNextHamsterId(1);
-      //      break;
-      //   case ham3:
-      //     setNextHamsterId(2);
-      //     break;
-      //   case ham4:
-      //     setNextHamsterId(3);
-      //     break;
-      // }
       return updatedHamsters;
     });
   };
