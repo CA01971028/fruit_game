@@ -1,3 +1,4 @@
+// Rectangle.tsx
 // 必要なモジュールと画像のインポート
 import React, { useState, useEffect } from 'react';
 import owlImage from '../img/owl.png'; // フクロウの画像
@@ -98,25 +99,12 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
       const updatedHamsters = { ...prevHamsters };
   
       // 最後のハムスターを落とす
-      const lastHamsterKey = Object.keys(updatedHamsters).length - 1;
-      updatedHamsters[lastHamsterKey].drop = true;
+      const lastHamsterId = Object.keys(updatedHamsters).length - 1;
+      updatedHamsters[lastHamsterId].drop = true;
       // 更新されたハムスターの位置を設定
-      updatedHamsters[lastHamsterKey].left = owlLeft;
-  
-      // 新しいハムスターを追加または既存のハムスターを再利用
-      const newHamsterId = nextHamsterId % 6; // IDを0から5の範囲内に制限
-      const newKey = nextHamsterId; // ユニークなキー
-  
-      updatedHamsters[newKey] = { 
-        id: newHamsterId, 
-        radius: hamsterradius, 
-        image: hamsterImages[newHamsterId % hamsterImages.length], 
-        drop: false, 
-        top: 0, 
-        left: owlLeft, 
-        stopped: false 
-      };
-  
+      updatedHamsters[lastHamsterId].left = owlLeft;
+      // 新しいハムスターを追加
+      updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: hamsterImages[nextHamsterId % hamsterImages.length], drop: false, top: 0, left: owlLeft, stopped: false };
       setNextHamsterId(nextHamsterId + 1);
       Changecurrent();
       getRandomNumber();
@@ -124,6 +112,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
       // ログを追加してデバッグ情報を確認
       console.log("Updated Hamsters:", updatedHamsters);
       console.log(`Next Hamster ID: ${nextHamsterId}`);
+      console.log("left",{owlLeft})
       
       return updatedHamsters;
     });

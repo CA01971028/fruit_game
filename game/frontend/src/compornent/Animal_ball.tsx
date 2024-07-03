@@ -85,9 +85,19 @@ export const useBallMovement = (
 
             
             setTopPosition(prev => prev - moveY);
-            if(leftPosition >= 10){
+            if (leftPosition >= 448 && leftPosition <= 848) {
               setSpeedX(-speedX1);
               setLeftPosition(prev => prev - moveX);
+              hamsters[otherHamster.id].left += moveX;
+            } else if (leftPosition < 448) {
+              // 左側の制限
+              setSpeedX(-speedX1);
+              setLeftPosition(prev => 448 + Math.abs(prev - 448));  // 448 に戻す
+              hamsters[otherHamster.id].left -= moveX;
+            } else if (leftPosition > 848) {
+              // 右側の制限
+              setSpeedX(-speedX1);
+              setLeftPosition(prev => 848 - Math.abs(prev - 848));  // 848 に戻す
               hamsters[otherHamster.id].left += moveX;
             }
             hamsters[otherHamster.id].top += moveY;
