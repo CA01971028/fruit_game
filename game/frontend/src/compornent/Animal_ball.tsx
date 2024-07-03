@@ -5,6 +5,8 @@ import { Hamster } from './Rectangle';
 interface AnimalBallProps {
   owlLeft: number;
   basketHeight: number;
+  basketLeft: number;
+  basketWidth: number;
   dropHamster: boolean;
   image: string[];
   id: number;
@@ -25,6 +27,8 @@ export const useBallMovement = (
   initialSpeed: number,
   intervalTime: number,
   basketHeight: number,
+  basketLeft: number,
+  basketWidth: number,
   dropHamster: boolean,
   id: number,
   radius: number,
@@ -45,7 +49,7 @@ export const useBallMovement = (
   useEffect(() => {
     const animate = () => {
       if (!dropHamster) return;
-
+  
       setTopPosition(prev => {
         let newPosition = prev + speedY;
         if (newPosition >= basketHeight - 35) {
@@ -58,53 +62,50 @@ export const useBallMovement = (
         }
         return newPosition;
       });
-
-      setLeftPosition(prev => prev + speedX);
-
+  
+      setLeftPosition(prev => {
+        let newPosition = prev + speedX;
+        if (newPosition < basketLeft + radius) {
+          // 左端の制限
+          newPosition = basketLeft + radius;
+          setSpeedX(-speedX * bounceFactor);
+        } else if (newPosition > basketLeft + basketWidth - radius) {
+          // 右端の制限
+          newPosition = basketLeft + basketWidth - radius;
+          setSpeedX(-speedX * bounceFactor);
+        }
+        return newPosition;
+      });
+  
       setSpeedY(prev => prev + gravity);
-
+  
       let collisionDetected = false;
       Object.keys(hamsters).forEach(key => {
         const otherHamster = hamsters[parseInt(key)];
         if (otherHamster.id !== id && (otherHamster.drop || otherHamster.stopped)) {
-          const distance = calculateDistance(owlLeft, topPosition, otherHamster.left, otherHamster.top);
+          const distance = calculateDistance(leftPosition, topPosition, otherHamster.left, otherHamster.top);
           const minDistance = radius + otherHamster.radius;
           if (distance < minDistance) {
             collisionDetected = true;
-
-            const angle = calculateAngle(owlLeft, topPosition, otherHamster.left, otherHamster.top);
+  
+            const angle = calculateAngle(leftPosition, topPosition, otherHamster.left, otherHamster.top);
             const speedX1 = Math.cos(angle) * (minDistance - distance) * bounceFactor;
             const speedY1 = Math.sin(angle) * (minDistance - distance) * bounceFactor;
-
-
+  
             setSpeedY(-speedY1);
-
+  
             const overlap = minDistance - distance;
             const moveX = overlap * Math.cos(angle) / 2;
             const moveY = overlap * Math.sin(angle) / 2;
-
-            
+  
             setTopPosition(prev => prev - moveY);
-            if (leftPosition >= 448 && leftPosition <= 848) {
-              setSpeedX(-speedX1);
-              setLeftPosition(prev => prev - moveX);
-              hamsters[otherHamster.id].left += moveX;
-            } else if (leftPosition < 448) {
-              // 左側の制限
-              setSpeedX(-speedX1);
-              setLeftPosition(prev => 448 + Math.abs(prev - 448));  // 448 に戻す
-              hamsters[otherHamster.id].left -= moveX;
-            } else if (leftPosition > 848) {
-              // 右側の制限
-              setSpeedX(-speedX1);
-              setLeftPosition(prev => 848 - Math.abs(prev - 848));  // 848 に戻す
-              hamsters[otherHamster.id].left += moveX;
-            }
+            setLeftPosition(prev => prev - moveX);
+            hamsters[otherHamster.id].left += moveX;
             hamsters[otherHamster.id].top += moveY;
           }
         }
       });
-
+  
       if (!collisionDetected) {
         animateRef.current = requestAnimationFrame(animate);
       } else {
@@ -112,17 +113,18 @@ export const useBallMovement = (
         animateRef.current = requestAnimationFrame(animate);
       }
     };
-
+  
     if (dropHamster) {
       animateRef.current = requestAnimationFrame(animate);
     }
-
+  
     return () => {
       if (animateRef.current) {
         cancelAnimationFrame(animateRef.current);
       }
     };
   }, [dropHamster, speedX, speedY, intervalTime, basketHeight]);
+  
 
   useEffect(() => {
     if (dropHamster) {
@@ -138,8 +140,8 @@ export const useBallMovement = (
 };
 
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
-  const { owlLeft, basketHeight, dropHamster, image, id, hamsters, radius } = props;
-  const { topPosition } = useBallMovement(0, 2, 50, basketHeight, dropHamster, id, radius, hamsters, owlLeft);
+  const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius } = props;
+  const { topPosition } = useBallMovement(0, 2, 50, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft);
 
   return (
     <div
