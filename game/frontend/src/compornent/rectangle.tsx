@@ -1,15 +1,13 @@
-// Rectangle.tsx
-// 必要なモジュールと画像のインポート
 import React, { useState, useEffect } from 'react';
-import owlImage from '../img/owl.png'; // フクロウの画像
-import ham1 from '../img/hamster.png'; // ハムスターの画像
-import ham2 from '../img/animal_hamster6.png'; // ハムスターの画像2
-import ham3 from '../img/animal_hamster5.png'; // ハムスターの画像3
-import ham4 from '../img/animal_hamster4.png'; // ハムスターの画像4
-import ham5 from '../img/animal_hamster3.png'; // ハムスターの画像5
-import ham6 from '../img/animal_hamster2.png'; // ハムスターの画像6
-import Animal_ball from './Animal_ball'; // Animal_ballコンポーネントのインポート
-import { Box } from '@mui/material'; // Material UIのBoxコンポーネントのインポート
+import owlImage from '../img/owl.png';
+import ham1 from '../img/hamster.png';
+import ham2 from '../img/animal_hamster6.png';
+import ham3 from '../img/animal_hamster5.png';
+import ham4 from '../img/animal_hamster4.png';
+import ham5 from '../img/animal_hamster3.png';
+import ham6 from '../img/animal_hamster2.png';
+import Animal_ball from './Animal_ball';
+import { Box } from '@mui/material';
 
 // ハムスターの辞書型を定義
 type HamsterDictionary = {
@@ -23,7 +21,6 @@ type HamsterDictionary = {
     stopped: boolean;
   };
 }
-
 
 // ハムスターのリストを定義
 const hamsterImages = [
@@ -59,24 +56,24 @@ const Hamsters : Hamster[] = [
 interface RectangleProps {
   getRandomNumber: () => void;
   Changecurrent: () => void;
-  current:string;
+  current: string;
 }
 
 // Rectangleコンポーネントを定義
-const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,current}) => {
-  const screenWidth:number = window.innerWidth; // 画面の幅を取得
-  const basketWidth:number = 450; // バスケットの幅
-  const basketHeight:number = 500; // バスケットの高さ
-  const basketTop:number = 0; // バスケットの上位置
-  const basketleft:number = ((screenWidth/2) - 225); // バスケットの左位置
-  const owlSize:number = 100; // フクロウのサイズ
-  const hamsterradius:number = 25; // ハムスターの初期半径
-  const widthMove:number = 20; // 移動量
-  const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2); // フクロウの初期位置の状態
+const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, current }) => {
+  const screenWidth: number = window.innerWidth;
+  const basketWidth: number = 450;
+  const basketHeight: number = 500;
+  const basketTop: number = 0;
+  const basketleft: number = ((screenWidth / 2) - 225);
+  const owlSize: number = 100;
+  const widthMove: number = 20;
+  const [hamsterradius, setHamsterradius] = useState<number>(40);
+  const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<HamsterDictionary>({
-    0: { id: 0, radius: hamsterradius, image: ham1, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
-  }); // ハムスターの状態を辞書で管理
-  const [nextHamsterId, setNextHamsterId] = useState(1); // 次のハムスターのIDを管理
+    0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
+  });
+  const [nextHamsterId, setNextHamsterId] = useState(1);
 
   // マウス移動時の処理
   const handleMouseMove = (event: MouseEvent) => {
@@ -95,25 +92,25 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
 
   // マウスクリック時の処理
   const handleMouseClick = () => {
-    setHamsters(prevHamsters => {
-      
-      const updatedHamsters = { ...prevHamsters };
-  
-      // 最後のハムスターを落とす
-      const lastHamsterId = Object.keys(updatedHamsters).length - 1;
-      updatedHamsters[lastHamsterId].drop = true;
-      // 更新されたハムスターの位置を設定
-      updatedHamsters[lastHamsterId].left = owlLeft;
-      // 新しいハムスターを追加
-      updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false };
-      setNextHamsterId(nextHamsterId + 1);
-      Changecurrent();
-      getRandomNumber();
-      return updatedHamsters;
-    });
+    Changecurrent();
   };
-  
-  
+
+  // currentが変更されたときの処理
+  useEffect(() => {
+    if (current) {
+      setHamsters(prevHamsters => {
+        const updatedHamsters = { ...prevHamsters };
+        const lastHamsterId = Object.keys(updatedHamsters).length - 1;
+        updatedHamsters[lastHamsterId].drop = true;
+        updatedHamsters[lastHamsterId].left = owlLeft;
+        updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false };
+        setNextHamsterId(nextHamsterId + 1);
+        return updatedHamsters;
+      });
+      getRandomNumber();
+    }
+  }, [current]);
+
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('click', handleMouseClick);
@@ -121,7 +118,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('click', handleMouseClick);
     };
-  }, [owlLeft, hamsters, nextHamsterId]); // 依存配列に必要な状態を追加
+  }, [owlLeft, hamsters, nextHamsterId]);
 
   return (
     <>
@@ -154,4 +151,4 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber,Changecurrent,cur
   );
 }
 
-export default Rectangle; // Rectangleコンポーネントをエクスポート
+export default Rectangle;

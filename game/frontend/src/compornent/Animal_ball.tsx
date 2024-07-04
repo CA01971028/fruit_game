@@ -148,7 +148,7 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
       style={{
         position: 'absolute',
         top: `${topPosition + 100 + radius}px`,
-        left: `${owlLeft + radius * 2}px`,
+        left: `${owlLeft + radius * 1.3}px`,
         transform: 'translate(-50%, -50%)',
       }}
     >

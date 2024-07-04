@@ -6,64 +6,68 @@ import ham1 from '../img/hamster.png';
 import ham2 from '../img/animal_hamster6.png';
 import ham3 from '../img/animal_hamster5.png';
 import ham4 from '../img/animal_hamster4.png';
+import ham5 from '../img/animal_hamster3.png'; // 新しいハムスターの画像を追加する
 
 function Next() {
   const [hamsterSize, setHamsterSize] = useState<number>(100);
-  const [hamsterKind, setHamsterKind] = useState<string>(ham1);
-  const [current,setCurrent] = useState<string>(ham1);
-  const [currentSize,setCurrentSize] = useState<number>(50)
-    const getRandomNumber = () => {
-        const randomValue = Math.ceil(Math.random() * 10);
-
-        // 確率に基づいて数字を選択
-        if (randomValue <= 4) {
-          setHamsterKind(ham1);
-          setHamsterSize(100);
-        } else if (randomValue <= 7) {
-          setHamsterKind(ham2);
-          setHamsterSize(100);
-        } else if (randomValue <= 9) {
-          setHamsterKind(ham3);
-          setHamsterSize(100);
-        } else {
-          setHamsterKind(ham4);
-          setHamsterSize(100);
-        }
-    };
-
-    const Changecurrent = () =>{
-      setCurrent(hamsterKind)
-      setCurrentSize(hamsterSize)
+  const [nextham, setNextham] = useState<string>(ham1);
+  const [current, setCurrent] = useState<string>(ham1);
+  const [currentSize, setCurrentSize] = useState<number>(100);
+    
+  const getRandomNumber = () => {
+    const randomValue = Math.ceil(Math.random() * 10);
+    if (current === ham1) {
+      setNextham(ham2);
+    } else if (current === ham2) {
+      setNextham(ham3);
+    } else if (current === ham3) {
+      setNextham(ham4);
+    } else if (current === ham4) {
+      setNextham(ham5); // 新しいハムスターの画像をランダムに選択する場合はここにランダム関数を書く
+    } else {
+      setNextham(ham1); // 最後のハムスターの場合は最初に戻る
     }
-    const rectangleProps = {
-      getRandomNumber,
-      Changecurrent,
-      current
-    };
+    setHamsterSize(100);
+  };
+
+  const Changecurrent = () => {
+    setCurrent(nextham);
+    setCurrentSize(hamsterSize);
+  };
+
+  useEffect(() => {
+    getRandomNumber();
+  }, [current]); // current の変更時に新しいハムスターを選択する
+
+  const rectangleProps = {
+    getRandomNumber,
+    Changecurrent,
+    current,
+  };
 
   return (
     <>
       <div className="circle">
         <Box
           component="img"
-          src={current}
-          alt="ハムスター各種"
+          src={nextham}
+          alt="次のハムスター各種"
           height={hamsterSize}
           width={hamsterSize}
           sx={{ position: 'absolute', top: '80px', left: 'auto' }}
         />
-        {/* <Box
+        <Box
           component="img"
           src={current}
-          alt="ハムスター各種"
+          alt="現在のハムスター各種"
           height={currentSize}
           width={currentSize}
           sx={{ position: 'absolute', top: '250px', left: 'auto' }}
-        /> */}
+        />
         <span className="text">ネクスト</span>
-        {/* <Box component="span"className="text"sx={{ position: 'absolute', top: '230px', left: '50%' }}>現在</Box> */}
+        <Box component="span" className="text" sx={{ position: 'absolute', top: '230px', left: '50%' }}>現在</Box>
       </div>
-      <Rectangle {...rectangleProps}/>
+      <Rectangle {...rectangleProps} />
     </>
   );
 }
