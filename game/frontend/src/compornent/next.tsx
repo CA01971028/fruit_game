@@ -8,7 +8,13 @@ import ham3 from '../img/animal_hamster5.png';
 import ham4 from '../img/animal_hamster4.png';
 import ham5 from '../img/animal_hamster3.png'; // 新しいハムスターの画像を追加する
 
-function Next() {
+type NextProps = {
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+};
+
+
+const Next: React.FC<NextProps> = ({ score, setScore }) => {
   const [hamsterSize, setHamsterSize] = useState<number>(100);
   const [nextham, setNextham] = useState<string>(ham1);
   const [current, setCurrent] = useState<string>(ham1);
@@ -43,6 +49,8 @@ function Next() {
     getRandomNumber,
     Changecurrent,
     current,
+    score ,
+    setScore,
   };
 
   return (
