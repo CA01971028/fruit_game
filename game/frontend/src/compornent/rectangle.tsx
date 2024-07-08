@@ -95,11 +95,19 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
     });
   };
 
+  const [clickCooldown, setClickCooldown] = useState(false);
+
   // マウスクリック時の処理
   const handleMouseClick = () => {
-    Changecurrent();
+    if (!clickCooldown) {
+      Changecurrent();
+      setClickCooldown(true);
+      setTimeout(() => {
+        setClickCooldown(false);
+      }, 500); // 0.5秒間のクールダウン
+    }
   };
-
+  
   // currentが変更されたときの処理
   useEffect(() => {
     if (current) {
@@ -123,7 +131,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('click', handleMouseClick);
     };
-  }, [owlLeft, hamsters, nextHamsterId]);
+  }, [owlLeft, hamsters, nextHamsterId, clickCooldown]);
 
   return (
     <>
