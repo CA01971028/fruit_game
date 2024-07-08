@@ -1,3 +1,4 @@
+// Reactangle.tsx
 import React, { useState, useEffect } from 'react';
 import owlImage from '../img/owl.png';
 import ham1 from '../img/hamster.png';
@@ -70,7 +71,8 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
   const basketleft: number = ((screenWidth / 2) - 225);
   const owlSize: number = 100;
   const widthMove: number = 20;
-  const [hamsterradius, setHamsterradius] = useState<number>(40);
+  // const [hamsterradius, setHamsterradius] = useState<number>(40);
+  const hamsterradius: number = 40;
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<HamsterDictionary>({
     0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
@@ -81,12 +83,12 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
   // マウス移動時の処理
   const handleMouseMove = (event: MouseEvent) => {
     const mouseX = event.clientX;
-    setOwlLeft(Math.max(basketleft - 10, Math.min(basketleft + 390, mouseX - owlSize / 2)));
+    setOwlLeft(Math.max(basketleft, Math.min(basketleft + 380, mouseX - owlSize / 2)));
     setHamsters(prevHamsters => {
       const updatedHamsters = { ...prevHamsters };
       Object.keys(updatedHamsters).forEach(key => {
         if (!updatedHamsters[parseInt(key)].drop) {
-          updatedHamsters[parseInt(key)].left = Math.max(basketleft - 10, Math.min(basketleft + 390, mouseX - owlSize / 2));
+          updatedHamsters[parseInt(key)].left = Math.max(basketleft, Math.min(basketleft + 380, mouseX - owlSize / 2));
         }
       });
       return updatedHamsters;
