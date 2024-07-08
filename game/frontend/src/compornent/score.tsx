@@ -2,12 +2,6 @@ import React ,{useEffect,useState} from 'react';
 import axios from "axios";
 import Next from './Next';
 
-
-
-
-
-
-
 function Score() {
   const [scores,setScores] = useState<number>(200)
   const [score,setScore] = useState<number>(0)

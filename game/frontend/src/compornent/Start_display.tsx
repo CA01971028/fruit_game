@@ -53,6 +53,12 @@ const App: React.FC = () => {
                   marginLeft:'40%',
                   width:'200px;'
                   }} variant="contained" onClick={onclick}>START</Button>
+      <Box sx={{backgroundColor:'#e0e0e0',width:'25%',height:'55%',display:'inline-block',position:'absolute',marginTop:'-45%',marginLeft:'19%'}}><strong>ハムスターボールゲームのルール</strong><br/>
+      このゲームでは、ハムスターボールを白いバケツの中に落とし、同じ種類のハムスターを重ねることでポイントを獲得できます。ハムスターの種類によってポイントの増減率が異なります。<br/><strong>ゲームの操作方法は以下の通りです:</strong><br/>
+      <strong>&middot;</strong>マウスをクリックすると、クリックした場所にハムスターが落とせる！<br/><strong>&middot;</strong>次に落ちるハムスターは画面右上に表示されるよ！<br/>
+      <strong>&middot;</strong>同じ種類のハムスターを重ねると、ポイントが増える。より高得点を取れるように目指そう！
+      </Box>
+      
     </>
   );
 };
