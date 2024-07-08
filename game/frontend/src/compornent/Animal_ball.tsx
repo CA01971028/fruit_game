@@ -1,4 +1,3 @@
-// Animal_ball.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Hamster } from './Rectangle';
 
