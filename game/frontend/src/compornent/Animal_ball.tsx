@@ -52,8 +52,8 @@ export const useBallMovement = (
   
       setTopPosition(prev => {
         let newPosition = prev + speedY;
-        if (newPosition >= basketHeight - 35) {
-          newPosition = basketHeight - 35;
+        if (newPosition >= basketHeight - 60) {
+          newPosition = basketHeight - 60;
           const newSpeedY = -speedY * bounceFactor;
           setSpeedY(Math.abs(newSpeedY) < minSpeed ? 0 : newSpeedY);
           if (Math.abs(newSpeedY) < minSpeed) {
