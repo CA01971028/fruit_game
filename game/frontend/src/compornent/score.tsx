@@ -1,5 +1,12 @@
 import React ,{useEffect,useState} from 'react';
 import axios from "axios";
+import Next from './Next';
+
+
+
+
+
+
 
 function Score() {
   const [scores,setScores] = useState<number>(200)
@@ -14,6 +21,7 @@ function Score() {
 
 
   return (
+    <>
     <div className="score-container">
       <svg width="200" height="200" className="score-svg">
         {/* 赤い円 */}
@@ -34,6 +42,9 @@ function Score() {
         </text>
       </svg>
     </div>
+    <Next score ={score} setScore={setScore}/>
+    </>
+    
   )
 }
 

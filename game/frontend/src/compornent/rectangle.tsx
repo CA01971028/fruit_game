@@ -58,10 +58,12 @@ interface RectangleProps {
   getRandomNumber: () => void;
   Changecurrent: () => void;
   current: string;
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // Rectangleコンポーネントを定義
-const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, current }) => {
+const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, current ,score,setScore}) => {
   const screenWidth: number = window.innerWidth;
   const basketWidth: number = 450;
   const basketHeight: number = 500;
@@ -75,6 +77,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
   const [hamsters, setHamsters] = useState<HamsterDictionary>({
     0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
   });
+
   const [nextHamsterId, setNextHamsterId] = useState(1);
 
   // マウス移動時の処理
@@ -147,6 +150,8 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
           id={hamster.id}
           hamsters={hamsters}
           radius={hamster.radius}
+          score ={score} 
+          setScore={setScore}
         />
       ))} {/* 各ハムスターのAnimal_ballコンポーネントをレンダリング */}
     </>

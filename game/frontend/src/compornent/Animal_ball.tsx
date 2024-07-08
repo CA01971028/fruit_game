@@ -12,6 +12,8 @@ interface AnimalBallProps {
   id: number;
   radius: number;
   hamsters: { [key: number]: Hamster },
+  score: number,
+  setScore: React.Dispatch<React.SetStateAction<number>>,
 }
 
 const calculateDistance = (x1: number, y1: number, x2: number, y2: number) => {
@@ -140,8 +142,9 @@ export const useBallMovement = (
 };
 
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
-  const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius } = props;
+  const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius,score,setScore } = props;
   const { topPosition } = useBallMovement(0, 2, 50, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft);
+  
 
   return (
     <div

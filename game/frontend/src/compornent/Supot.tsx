@@ -13,7 +13,7 @@ function Supot() {
     <Background/>
     <Score/>
     <Ranking/>
-    <Next/>
+    {/* <Next/> */}
     <Next_block/>
     {/* <Rectangle/> */}
     {/* <Ball /> */}
