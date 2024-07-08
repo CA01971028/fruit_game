@@ -1,3 +1,4 @@
+// Rectangle.tsx
 import React, { useState, useEffect } from 'react';
 import owlImage from '../img/owl.png';
 import ham1 from '../img/hamster.png';
