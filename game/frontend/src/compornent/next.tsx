@@ -13,7 +13,6 @@ type NextProps = {
   setScore: React.Dispatch<React.SetStateAction<number>>;
 };
 
-
 const Next: React.FC<NextProps> = ({ score, setScore }) => {
   const [hamsterSize, setHamsterSize] = useState<number>(100);
   const [nextham, setNextham] = useState<string>(ham1);
@@ -21,18 +20,23 @@ const Next: React.FC<NextProps> = ({ score, setScore }) => {
   const [currentSize, setCurrentSize] = useState<number>(100);
     
   const getRandomNumber = () => {
-    const randomValue = Math.ceil(Math.random() * 10);
-    if (current === ham1) {
-      setNextham(ham2);
-    } else if (current === ham2) {
-      setNextham(ham3);
-    } else if (current === ham3) {
-      setNextham(ham4);
-    } else if (current === ham4) {
-      setNextham(ham5); // 新しいハムスターの画像をランダムに選択する場合はここにランダム関数を書く
-    } else {
-      setNextham(ham1); // 最後のハムスターの場合は最初に戻る
-    }
+    let newHamster;
+    do {
+      const randomValue = Math.round(Math.random() * 10 * 10) / 10;
+      if (randomValue <= 3) {
+        newHamster = ham1;
+      } else if (randomValue <= 5) {
+        newHamster = ham2;
+      } else if (randomValue <= 7.5) {
+        newHamster = ham3;
+      } else if (randomValue <= 8.5){
+        newHamster = ham4;
+      } else {
+        newHamster = ham5;
+      }
+    } while (newHamster === current); // currentHamster と異なるまで繰り返す
+
+    setNextham(newHamster);
     setHamsterSize(100);
   };
 
@@ -49,7 +53,7 @@ const Next: React.FC<NextProps> = ({ score, setScore }) => {
     getRandomNumber,
     Changecurrent,
     current,
-    score ,
+    score,
     setScore,
   };
 
@@ -78,6 +82,6 @@ const Next: React.FC<NextProps> = ({ score, setScore }) => {
       <Rectangle {...rectangleProps} />
     </>
   );
-}
+};
 
 export default Next;
