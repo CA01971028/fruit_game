@@ -6,7 +6,6 @@ import ham2 from '../img/animal_hamster6.png';
 import ham3 from '../img/animal_hamster5.png';
 import ham4 from '../img/animal_hamster4.png';
 import ham5 from '../img/animal_hamster3.png';
-import ham6 from '../img/animal_hamster2.png';
 import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 
@@ -28,7 +27,6 @@ const hamsterImages = [
   ham3,
   ham4,
   ham5,
-  ham6,
 ];
 
 export type Hamster = {
@@ -47,7 +45,6 @@ const Hamsters: Hamster[] = [
   { id: 2, radius: 75,  image: ham3, drop: false, top: 0, left: 0, stopped: false },
   { id: 3, radius: 100, image: ham4, drop: false, top: 0, left: 0, stopped: false },
   { id: 4, radius: 125, image: ham5, drop: false, top: 0, left: 0, stopped: false },
-  { id: 5, radius: 150, image: ham6, drop: false, top: 0, left: 0, stopped: false },
 ];
 
 interface RectangleProps {
@@ -95,7 +92,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       setIsCooldown(true);
       setTimeout(() => {
         setIsCooldown(false);
-      }, 500); // 0.5 seconds cooldown
+      }, 100); // 0.5 seconds cooldown
     }
   };
 
@@ -104,14 +101,17 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       setHamsters(prevHamsters => {
         const updatedHamsters = { ...prevHamsters };
         const lastHamsterId = Object.keys(updatedHamsters).length - 1;
-        updatedHamsters[lastHamsterId].drop = true;
-        updatedHamsters[lastHamsterId].left = owlLeft;
+        if (updatedHamsters[lastHamsterId]) {  // ここで存在確認を行う
+          updatedHamsters[lastHamsterId].drop = true;
+          updatedHamsters[lastHamsterId].left = owlLeft;
+        }
         updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false };
         setNextHamsterId(nextHamsterId + 1);
         return updatedHamsters;
       });
       getRandomNumber();
     }
+    console.log(hamsters)
   }, [current]);
 
   useEffect(() => {
