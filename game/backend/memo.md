@@ -10,6 +10,8 @@ $env:FLASK_APP = "hello"
 flask run
 $env:FLASK_ENV = "development"
 $env:FLASK_DEBUG = "1"
+$env:MYSQL_USER = "自分のmysqlのuser名"
+$env:MYSQL_PASSWORD = "自分のmysqlのpass"
 drop table scores;
 drop table users;
 CREATE TABLE users (
