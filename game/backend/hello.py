@@ -5,7 +5,7 @@ from flask_mysqldb import MySQL
 from datetime import timedelta 
 from flask_cors import CORS
 from cryptography.fernet import Fernet
-
+import os
 
 app = Flask(__name__)
 
@@ -16,8 +16,8 @@ CORS(app)
 
 # MySQL接続情報を設定
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'jugon'
-app.config['MYSQL_PASSWORD'] = '85208520'
+app.config['MYSQL_USER'] = os.getenv('MYSQL_USER')
+app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = 'fruit'
 
 mysql = MySQL(app)

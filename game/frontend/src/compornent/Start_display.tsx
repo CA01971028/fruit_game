@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Slide } from '@mui/material';
-import { Button, useTheme } from '@mui/material';
+import React from 'react';
+import { Box} from '@mui/material';
+import { Button} from '@mui/material';
 import '../css/compornent.css';
 import { useNavigate } from 'react-router-dom';
-import MuiSwitch from "@mui/material/Switch";
 
 import ham1 from '../img/hamster.png';
 import ham2 from '../img/animal_hamster6.png';
