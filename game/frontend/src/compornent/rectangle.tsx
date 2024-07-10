@@ -10,7 +10,7 @@ import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 
 type HamsterDictionary = {
-  [key: number]: { 
+  [key: number]: {
     id: number;
     radius: number;
     image: string;
@@ -18,6 +18,7 @@ type HamsterDictionary = {
     top: number;
     left: number;
     stopped: boolean;
+    visible: boolean;
   };
 }
 
@@ -37,14 +38,15 @@ export type Hamster = {
   top: number;
   left: number;
   stopped: boolean;
+  visible: boolean;
 }
 
 const Hamsters: Hamster[] = [
-  { id: 0, radius: 25,  image: ham1, drop: false, top: 0, left: 0, stopped: false },
-  { id: 1, radius: 50,  image: ham2, drop: false, top: 0, left: 0, stopped: false },
-  { id: 2, radius: 75,  image: ham3, drop: false, top: 0, left: 0, stopped: false },
-  { id: 3, radius: 100, image: ham4, drop: false, top: 0, left: 0, stopped: false },
-  { id: 4, radius: 125, image: ham5, drop: false, top: 0, left: 0, stopped: false },
+  { id: 0, radius: 25,  image: ham1, drop: false, top: 0, left: 0, stopped: false, visible: true },
+  { id: 1, radius: 50,  image: ham2, drop: false, top: 0, left: 0, stopped: false, visible: true },
+  { id: 2, radius: 75,  image: ham3, drop: false, top: 0, left: 0, stopped: false, visible: true },
+  { id: 3, radius: 100, image: ham4, drop: false, top: 0, left: 0, stopped: false, visible: true },
+  { id: 4, radius: 125, image: ham5, drop: false, top: 0, left: 0, stopped: false, visible: true },
 ];
 
 interface RectangleProps {
@@ -66,7 +68,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
   const hamsterradius: number = 40;
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<HamsterDictionary>({
-    0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false }
+    0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false, visible: true }
   });
 
   const [nextHamsterId, setNextHamsterId] = useState(1);
@@ -92,7 +94,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       setIsCooldown(true);
       setTimeout(() => {
         setIsCooldown(false);
-      }, 100); // 0.5 seconds cooldown
+      }, 300); // 0.3 seconds cooldown
     }
   };
 
@@ -101,17 +103,16 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       setHamsters(prevHamsters => {
         const updatedHamsters = { ...prevHamsters };
         const lastHamsterId = Object.keys(updatedHamsters).length - 1;
-        if (updatedHamsters[lastHamsterId]) {  // ここで存在確認を行う
+        if (updatedHamsters[lastHamsterId]) {
           updatedHamsters[lastHamsterId].drop = true;
           updatedHamsters[lastHamsterId].left = owlLeft;
         }
-        updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false };
+        updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false, visible: true };
         setNextHamsterId(nextHamsterId + 1);
         return updatedHamsters;
       });
       getRandomNumber();
     }
-    console.log(hamsters)
   }, [current]);
 
   useEffect(() => {
@@ -137,20 +138,22 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       /> {/* フクロウの画像を表示 */}
 
       {Object.values(hamsters).map(hamster => (
-        <Animal_ball
-          key={hamster.id}
-          owlLeft={hamster.drop ? hamster.left : owlLeft}
-          basketHeight={basketHeight}
-          basketLeft={basketLeft}
-          basketWidth={basketWidth}
-          dropHamster={hamster.drop}
-          image={[hamster.image]}
-          id={hamster.id}
-          hamsters={hamsters}
-          radius={hamster.radius}
-          score={score} 
-          setScore={setScore}
-        />
+        hamster.visible && (
+          <Animal_ball
+            key={hamster.id}
+            owlLeft={hamster.drop ? hamster.left : owlLeft}
+            basketHeight={basketHeight}
+            basketLeft={basketLeft}
+            basketWidth={basketWidth}
+            dropHamster={hamster.drop}
+            image={[hamster.image]}
+            id={hamster.id}
+            hamsters={hamsters}
+            radius={hamster.radius}
+            score={score}
+            setScore={setScore}
+          />
+        )
       ))} {/* 各ハムスターのAnimal_ballコンポーネントをレンダリング */}
     </>
   );

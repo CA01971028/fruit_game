@@ -36,9 +36,9 @@ export const useBallMovement = (
   hamsters: { [key: number]: Hamster },
   owlLeft: number,
   setScore: React.Dispatch<React.SetStateAction<number>>,
-  image: string[] // add image parameter to useBallMovement
+  image: string[]
 ) => {
-  const [topPosition, setTopPosition] = useState(140); // フクロウの下に配置する
+  const [topPosition, setTopPosition] = useState(140);
   const [leftPosition, setLeftPosition] = useState(owlLeft);
   const [speedX, setSpeedX] = useState(0);
   const [speedY, setSpeedY] = useState(initialSpeed);
@@ -56,8 +56,8 @@ export const useBallMovement = (
 
       setTopPosition(prev => {
         let newPosition = prev + speedY;
-        if (newPosition >= basketHeight + radius * 2) {
-          newPosition = basketHeight + radius * 2;
+        if (newPosition >= basketHeight + radius * 1.98) {
+          newPosition = basketHeight + radius * 1.98;
           const newSpeedY = -speedY * bounceFactor;
           setSpeedY(Math.abs(newSpeedY) < minSpeed ? 0 : newSpeedY);
           if (Math.abs(newSpeedY) < minSpeed) {
@@ -85,7 +85,7 @@ export const useBallMovement = (
       let collisionDetected = false;
       Object.keys(hamsters).forEach(key => {
         const otherHamster = hamsters[parseInt(key)];
-        if (otherHamster && otherHamster.id !== id && (otherHamster.drop || otherHamster.stopped)) {
+        if (otherHamster && otherHamster.id !== id && (otherHamster.drop || otherHamster.stopped) && otherHamster.visible) {
           const distance = calculateDistance(leftPosition, topPosition, otherHamster.left, otherHamster.top);
           const minDistance = radius + otherHamster.radius;
           if (distance < minDistance) {
@@ -115,9 +115,11 @@ export const useBallMovement = (
               const scoreIncrement = getScoreIncrement(hamsters[id].image, image);
               setScore(prev => prev + scoreIncrement);
 
-              // ハムスターを削除
-              delete hamsters[id];
-              delete hamsters[otherHamster.id];
+              // ハムスターを非表示にし、停止状態に設定
+              hamsters[id].visible = false;
+              hamsters[id].stopped = true;
+              hamsters[otherHamster.id].visible = false;
+              hamsters[otherHamster.id].stopped = true;
             }
           }
         }
@@ -140,7 +142,7 @@ export const useBallMovement = (
         cancelAnimationFrame(animateRef.current);
       }
     };
-  }, [dropHamster, speedX, speedY, basketHeight, basketLeft, basketWidth, owlLeft, hamsters, id, radius, setScore, image]); // owlLeft を依存配列に追加
+  }, [dropHamster, speedX, speedY, basketHeight, basketLeft, basketWidth, owlLeft, hamsters, id, radius, setScore, image]);
 
   useEffect(() => {
     if (!dropHamster) {
@@ -180,8 +182,8 @@ const getScoreIncrement = (image: string, images: string[]) => {
 };
 
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
-  const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius, setScore } = props;
-  const { topPosition, leftPosition } = useBallMovement(0, 2, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft, setScore, image); 
+  const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius, score, setScore } = props;
+  const { topPosition, leftPosition } = useBallMovement(0, 2, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft, setScore, image);
 
   return (
     <div
