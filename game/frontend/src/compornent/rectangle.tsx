@@ -6,6 +6,7 @@ import ham2 from '../img/animal_hamster6.png';
 import ham3 from '../img/animal_hamster5.png';
 import ham4 from '../img/animal_hamster4.png';
 import ham5 from '../img/animal_hamster3.png';
+import ham6 from '../img/animal_hamster2.png';
 import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
 import { Button} from '@mui/material';
@@ -31,6 +32,7 @@ const hamsterImages = [
   ham3,
   ham4,
   ham5,
+  ham6,
 ];
 
 export type Hamster = {
@@ -68,7 +70,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
   const basketLeft: number = ((screenWidth / 2) - 225);
   const owlSize: number = 100;
   const widthMove: number = 20;
-  const hamsterradius: number = 60;
+  const hamsterradius: number = 70;
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<HamsterDictionary>({
     0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false, visible: true }
@@ -133,12 +135,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
           updatedHamsters[lastHamsterId].drop = true;
           updatedHamsters[lastHamsterId].left = owlLeft;
         }
-        if(current === '/static/media/animal_hamster2.b40e9d24072a4d938bd9.png'){
-          updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: 80, image: current, drop: false, top: 0, left: owlLeft, stopped: false, visible: true };
-        }else{
           updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false, visible: true };
-        }
-
         setNextHamsterId(nextHamsterId + 1);
         return updatedHamsters;
       });

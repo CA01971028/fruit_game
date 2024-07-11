@@ -23,15 +23,15 @@ const Next: React.FC<NextProps> = ({ score, setScore }) => {
     let newHamster;
     do {
       const randomValue = Math.round(Math.random() * 10 * 10) / 10;
-        if (randomValue <= 8) {
+        if (randomValue <= 1.6) {
           newHamster = ham6;
-        } else if (randomValue <= 3) {
+        } else if (randomValue <= 3.2) {
           newHamster = ham1;
-        } else if (randomValue <= 5) {
+        } else if (randomValue <= 4.8) {
           newHamster = ham2;
-        } else if (randomValue <= 7.5) {
+        } else if (randomValue <= 6.4) {
           newHamster = ham3;
-        } else if (randomValue <= 8.5) {
+        } else if (randomValue <= 8) {
           newHamster = ham4;
         } else {
           newHamster = ham5;

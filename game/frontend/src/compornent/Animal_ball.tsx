@@ -1,6 +1,12 @@
 // Animal_ball.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Hamster } from './Rectangle';
+import ham1 from '../img/hamster.png';
+import ham2 from '../img/animal_hamster6.png';
+import ham3 from '../img/animal_hamster5.png';
+import ham4 from '../img/animal_hamster4.png';
+import ham5 from '../img/animal_hamster3.png';
+import ham6 from '../img/animal_hamster2.png';
 import { Button} from '@mui/material';
 
 interface AnimalBallProps {
@@ -57,8 +63,8 @@ export const useBallMovement = (
 
       setTopPosition(prev => {
         let newPosition = prev + speedY;
-        if (newPosition >= basketHeight + radius - 20) {
-          newPosition = basketHeight + radius - 20;
+        if (newPosition >= basketHeight + radius - 30) {
+          newPosition = basketHeight + radius - 30;
           const newSpeedY = -speedY * bounceFactor;
           setSpeedY(Math.abs(newSpeedY) < minSpeed ? 0 : newSpeedY);
           if (Math.abs(newSpeedY) < minSpeed) {
@@ -168,16 +174,18 @@ export const useBallMovement = (
 
 const getScoreIncrement = (image: string, images: string[]) => {
   switch (image) {
-    case images[0]:
+    case ham1:
       return 50;
-    case images[1]:
+    case ham2:
       return 60;
-    case images[2]:
+    case ham3:
       return 70;
-    case images[3]:
+    case ham4:
       return 80;
-    case images[4]:
+    case ham5:
       return 90;
+    case ham6:
+      return -50;
     default:
       return 0;
   }
@@ -186,35 +194,15 @@ const getScoreIncrement = (image: string, images: string[]) => {
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
   const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius, score, setScore } = props;
   const { topPosition, leftPosition } = useBallMovement(0, 2, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft, setScore, image);
+  const [gameOver, setGameOver] = useState(false);
 
   // ゲームオーバー条件のチェック
-useEffect(() => {
-  const handleGameOver = async () => {
-    if (topPosition <= 0) {
-      
-      // try {
-      //   const response = await fetch("/api/post_score", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ data: [score, 1] }),
-      //   });
-        
-      //   const responseData = await response.json();
-      //   console.log(responseData.score); // バックエンドからのレスポンスをコンソール表示
-      //   if (responseData.success) {
-      //     console.log("うまく送信ができました。");
-      //   }
-      // } catch (error) {
-      //   console.error("送信中にエラーが発生しました:", error);
-      // }
+  useEffect(() => {
+    if (!gameOver && topPosition <= 20) {
+      alert('Game Over');
+      setGameOver(true);
     }
-  };
-
-  handleGameOver();
-}, [topPosition, basketHeight, radius]);
-
+  }, [topPosition, basketHeight, radius, gameOver]);
 
   return (
     <>
@@ -222,7 +210,7 @@ useEffect(() => {
       style={{
         position: 'absolute',
         top: `${topPosition + 20}px`,
-        left: `${leftPosition + radius * 0.84}px`,
+        left: `${leftPosition + radius * 0.725}px`,
         transform: 'translate(-50%, -50%)',
       }}
     >
