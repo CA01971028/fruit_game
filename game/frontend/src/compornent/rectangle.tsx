@@ -112,6 +112,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
         return updatedHamsters;
       });
       getRandomNumber();
+      console.log(current)
     }
   }, [current]);
 

@@ -7,7 +7,7 @@ import ham2 from '../img/animal_hamster6.png';
 import ham3 from '../img/animal_hamster5.png';
 import ham4 from '../img/animal_hamster4.png';
 import ham5 from '../img/animal_hamster3.png'; // 新しいハムスターの画像を追加する
-
+import ham6 from '../img/animal_hamster2.png';
 type NextProps = {
   score: number;
   setScore: React.Dispatch<React.SetStateAction<number>>;
@@ -18,22 +18,24 @@ const Next: React.FC<NextProps> = ({ score, setScore }) => {
   const [nextham, setNextham] = useState<string>(ham1);
   const [current, setCurrent] = useState<string>(ham1);
   const [currentSize, setCurrentSize] = useState<number>(100);
-    
+  const [count, setCount] = useState<number>(0)
   const getRandomNumber = () => {
     let newHamster;
     do {
       const randomValue = Math.round(Math.random() * 10 * 10) / 10;
-      if (randomValue <= 3) {
-        newHamster = ham1;
-      } else if (randomValue <= 5) {
-        newHamster = ham2;
-      } else if (randomValue <= 7.5) {
-        newHamster = ham3;
-      } else if (randomValue <= 8.5){
-        newHamster = ham4;
-      } else {
-        newHamster = ham5;
-      }
+        if (randomValue <= 8) {
+          newHamster = ham6;
+        } else if (randomValue <= 3) {
+          newHamster = ham1;
+        } else if (randomValue <= 5) {
+          newHamster = ham2;
+        } else if (randomValue <= 7.5) {
+          newHamster = ham3;
+        } else if (randomValue <= 8.5) {
+          newHamster = ham4;
+        } else {
+          newHamster = ham5;
+        }
     } while (newHamster === current); // currentHamster と異なるまで繰り返す
 
     setNextham(newHamster);
