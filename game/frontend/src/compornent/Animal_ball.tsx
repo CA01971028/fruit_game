@@ -56,8 +56,8 @@ export const useBallMovement = (
 
       setTopPosition(prev => {
         let newPosition = prev + speedY;
-        if (newPosition >= basketHeight + radius - 20) {
-          newPosition = basketHeight + radius - 20;
+        if (newPosition >= basketHeight + radius - 30) {
+          newPosition = basketHeight + radius - 30;
           const newSpeedY = -speedY * bounceFactor;
           setSpeedY(Math.abs(newSpeedY) < minSpeed ? 0 : newSpeedY);
           if (Math.abs(newSpeedY) < minSpeed) {
@@ -177,6 +177,8 @@ const getScoreIncrement = (image: string, images: string[]) => {
       return 80;
     case images[4]:
       return 90;
+    case images[5]:
+      return -50;
     default:
       return 0;
   }
@@ -185,19 +187,22 @@ const getScoreIncrement = (image: string, images: string[]) => {
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
   const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius, score, setScore } = props;
   const { topPosition, leftPosition } = useBallMovement(0, 2, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft, setScore, image);
-//   // ゲームオーバー条件のチェック
-// useEffect(() => {
-//   if (topPosition <= 0) {
-//   alert('Game Over');
-//   }
-//   }, [topPosition, basketHeight, radius]);
+  const [gameOver, setGameOver] = useState(false);
+
+  // ゲームオーバー条件のチェック
+  useEffect(() => {
+    if (!gameOver && topPosition <= 20) {
+      alert('Game Over');
+      setGameOver(true);
+    }
+  }, [topPosition, basketHeight, radius, gameOver]);
 
   return (
     <div
       style={{
         position: 'absolute',
         top: `${topPosition + 20}px`,
-        left: `${leftPosition + radius * 0.84}px`,
+        left: `${leftPosition + radius * 0.725}px`,
         transform: 'translate(-50%, -50%)',
       }}
     >
