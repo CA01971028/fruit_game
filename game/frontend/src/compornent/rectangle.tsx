@@ -65,7 +65,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
   const basketLeft: number = ((screenWidth / 2) - 225);
   const owlSize: number = 100;
   const widthMove: number = 20;
-  const hamsterradius: number = 40;
+  const hamsterradius: number = 60;
   const [owlLeft, setOwlLeft] = useState<number>((screenWidth - owlSize) / 2);
   const [hamsters, setHamsters] = useState<HamsterDictionary>({
     0: { id: 0, radius: hamsterradius, image: current, drop: false, top: 0, left: (screenWidth - owlSize) / 2, stopped: false, visible: true }
@@ -76,7 +76,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
 
   const handleMouseMove = (event: MouseEvent) => {
     const mouseX = event.clientX;
-    setOwlLeft(Math.max(basketLeft, Math.min(basketLeft + 380, mouseX - owlSize / 2)));
+    setOwlLeft(Math.max(basketLeft + 20, Math.min(basketLeft + 360, mouseX - owlSize / 2)));
     setHamsters(prevHamsters => {
       const updatedHamsters = { ...prevHamsters };
       Object.keys(updatedHamsters).forEach(key => {
@@ -94,7 +94,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       setIsCooldown(true);
       setTimeout(() => {
         setIsCooldown(false);
-      }, 300); // 0.3 seconds cooldown
+      }, 500); // 0.5 seconds cooldown
     }
   };
 

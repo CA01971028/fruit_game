@@ -56,8 +56,8 @@ export const useBallMovement = (
 
       setTopPosition(prev => {
         let newPosition = prev + speedY;
-        if (newPosition >= basketHeight + radius * 1.98) {
-          newPosition = basketHeight + radius * 1.98;
+        if (newPosition >= basketHeight + radius - 20) {
+          newPosition = basketHeight + radius - 20;
           const newSpeedY = -speedY * bounceFactor;
           setSpeedY(Math.abs(newSpeedY) < minSpeed ? 0 : newSpeedY);
           if (Math.abs(newSpeedY) < minSpeed) {
@@ -69,11 +69,11 @@ export const useBallMovement = (
 
       setLeftPosition(prev => {
         let newPosition = prev + speedX;
-        if (newPosition < basketLeft) {
-          newPosition = basketLeft;
+        if (newPosition < basketLeft + 25) {
+          newPosition = basketLeft + 25;
           setSpeedX(-speedX * bounceFactor);
-        } else if (newPosition > basketLeft + basketWidth - radius * 2) {
-          newPosition = basketLeft + basketWidth - radius * 2;
+        } else if (newPosition > basketLeft + basketWidth - radius * 2 + 25) {
+          newPosition = basketLeft + basketWidth - radius * 2 + 25;
           setSpeedX(-speedX * bounceFactor);
         }
         return newPosition;
@@ -159,6 +159,7 @@ export const useBallMovement = (
         updatedHamsters[id].stopped = hasDropped;
       }
     }
+    console.log(topPosition)
   }, [topPosition, leftPosition, hasDropped, dropHamster, hamsters, id]);
 
   return { topPosition, leftPosition };
@@ -184,13 +185,19 @@ const getScoreIncrement = (image: string, images: string[]) => {
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
   const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius, score, setScore } = props;
   const { topPosition, leftPosition } = useBallMovement(0, 2, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft, setScore, image);
+//   // ゲームオーバー条件のチェック
+// useEffect(() => {
+//   if (topPosition <= 0) {
+//   alert('Game Over');
+//   }
+//   }, [topPosition, basketHeight, radius]);
 
   return (
     <div
       style={{
         position: 'absolute',
-        top: `${topPosition}px`,
-        left: `${leftPosition + radius * 1.25}px`,
+        top: `${topPosition + 20}px`,
+        left: `${leftPosition + radius * 0.84}px`,
         transform: 'translate(-50%, -50%)',
       }}
     >
