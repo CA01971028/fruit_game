@@ -8,6 +8,9 @@ import ham4 from '../img/animal_hamster4.png';
 import ham5 from '../img/animal_hamster3.png';
 import Animal_ball from './Animal_ball';
 import { Box } from '@mui/material';
+import { Button} from '@mui/material';
+import { positions } from '@mui/system';
+
 
 type HamsterDictionary = {
   [key: number]: {
@@ -88,6 +91,29 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
     });
   };
 
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const test:number = 1
+      const response = await fetch('http://localhost:5000/score', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data: [score, test] }),
+      });
+      const responseData = await response.json();
+      if (responseData.success) {
+        console.log('送信成功')
+      } else {
+        console.log('送信失敗')
+      }
+    } catch (error) {
+      console.error("送信中にエラーが発生しました:", error);
+    }
+      console.log('ボタンが押されました');
+    }
+
   const handleMouseClick = () => {
     if (!isCooldown) {
       Changecurrent();
@@ -161,6 +187,10 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
           />
         )
       ))} {/* 各ハムスターのAnimal_ballコンポーネントをレンダリング */}
+      {/* <input type="button" value="スコアを送信" onClick={submit}/> */}
+      <Button variant="contained" onClick={submit} sx={{position:'absolute',marginTop:'-40%',marginLeft:'20%'}} >
+        スコアを保存
+      </Button>
     </>
   );
 }

@@ -1,6 +1,7 @@
 // Animal_ball.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Hamster } from './Rectangle';
+import { Button} from '@mui/material';
 
 interface AnimalBallProps {
   owlLeft: number;
@@ -159,7 +160,7 @@ export const useBallMovement = (
         updatedHamsters[id].stopped = hasDropped;
       }
     }
-    console.log(topPosition)
+    // console.log(topPosition)
   }, [topPosition, leftPosition, hasDropped, dropHamster, hamsters, id]);
 
   return { topPosition, leftPosition };
@@ -185,15 +186,39 @@ const getScoreIncrement = (image: string, images: string[]) => {
 const Animal_ball: React.FC<AnimalBallProps> = (props) => {
   const { owlLeft, basketHeight, basketLeft, basketWidth, dropHamster, image, id, hamsters, radius, score, setScore } = props;
   const { topPosition, leftPosition } = useBallMovement(0, 2, basketHeight, basketLeft, basketWidth, dropHamster, id, radius, hamsters, owlLeft, setScore, image);
-//   // ゲームオーバー条件のチェック
-// useEffect(() => {
-//   if (topPosition <= 0) {
-//   alert('Game Over');
-//   }
-//   }, [topPosition, basketHeight, radius]);
+
+  // ゲームオーバー条件のチェック
+useEffect(() => {
+  const handleGameOver = async () => {
+    if (topPosition <= 0) {
+      
+      // try {
+      //   const response = await fetch("/api/post_score", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ data: [score, 1] }),
+      //   });
+        
+      //   const responseData = await response.json();
+      //   console.log(responseData.score); // バックエンドからのレスポンスをコンソール表示
+      //   if (responseData.success) {
+      //     console.log("うまく送信ができました。");
+      //   }
+      // } catch (error) {
+      //   console.error("送信中にエラーが発生しました:", error);
+      // }
+    }
+  };
+
+  handleGameOver();
+}, [topPosition, basketHeight, radius]);
+
 
   return (
-    <div
+    <>
+      <div
       style={{
         position: 'absolute',
         top: `${topPosition + 20}px`,
@@ -207,7 +232,11 @@ const Animal_ball: React.FC<AnimalBallProps> = (props) => {
         height={radius * 2}
         width={radius * 2}
       />
+      
     </div>
+    {/* <input type="button" value="スコアを送信" onClick={submit}/> */}
+    </>
+    
   );
 }
 

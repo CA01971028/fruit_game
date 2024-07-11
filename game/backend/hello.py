@@ -129,7 +129,23 @@ def submit_add():
     else:
         return jsonify({'success': False}), 210
 
+@app.route('/score', methods=['POST'])
+def push():
+    cur = mysql.connection.cursor()
+    data = request.json
+    score = data['data'][0]
+    {'success': False}
+    print(data['data'][0])
+    # return jsonify({'success': True, 'name': score}), 200
+    cur.execute('INSERT INTO scores(user_id,score) VALUES(%s, %s)', (data['data'][1],data['data'][0]))
+    mysql.connection.commit()
+    if cur.rowcount == 1:
+        return jsonify({'success': True, 'score': data['data'][0]}), 200
+    else:
+        return jsonify({'success': False}), 210
 
+    
+    
 # 名前の表示
 @app.route('/api/data/name',methods = ['GET'])
 def get_dbname():
