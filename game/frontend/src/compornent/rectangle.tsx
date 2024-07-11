@@ -107,7 +107,12 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
           updatedHamsters[lastHamsterId].drop = true;
           updatedHamsters[lastHamsterId].left = owlLeft;
         }
-        updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false, visible: true };
+        if(current === '/static/media/animal_hamster2.b40e9d24072a4d938bd9.png'){
+          updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: 80, image: current, drop: false, top: 0, left: owlLeft, stopped: false, visible: true };
+        }else{
+          updatedHamsters[nextHamsterId] = { id: nextHamsterId, radius: hamsterradius, image: current, drop: false, top: 0, left: owlLeft, stopped: false, visible: true };
+        }
+
         setNextHamsterId(nextHamsterId + 1);
         return updatedHamsters;
       });
