@@ -5,12 +5,16 @@ import ham2 from '../img/animal_hamster6.png';
 import ham3 from '../img/animal_hamster5.png';
 import ham4 from '../img/animal_hamster4.png';
 import ham5 from '../img/animal_hamster3.png';
+import ham6 from '../img/animal_hamster2.png';
+import background from './Background';
+import { color } from '@mui/system';
 
 
 function next_block() {
   return (
-    <div className="donut">
-  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <>
+      <div className="donut">
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
         <Box component="img" src={ham1} alt="ハムスター各種" height={50} width={50} marginLeft={7} />
         <Box  sx={{ ml: 2, fontSize:'2em'}}>:50<strong>PT</strong></Box>
@@ -31,8 +35,14 @@ function next_block() {
         <Box component="img" src={ham5} alt="ハムスター各種" height={50} width={50} marginLeft={7}/>
         <Box  sx={{ ml: 2 , fontSize:'2em'}}>:90<strong>PT</strong></Box>
       </Box>
-  </Box>
+    </Box>
     </div>
+    <span style={{ position:'absolute',backgroundColor: 'rgb(250, 160, 252)',height:'200px',width:'180px',borderRadius: '10px',marginTop:'-20%',left:'20%'}}>
+    <Box component="img" src={ham6} alt="ハムスター各種" height={70} width={70} marginLeft={2} sx={{position:'absolute',top:'30%',display:'inline'}}/>
+    <Box  sx={{ fontSize:'2em',position:'absolute',display:'inline',top:'35%',left:'50%'}}>:-50<strong>PT</strong></Box>
+    </span>
+    </>
+    
   )
 }
 

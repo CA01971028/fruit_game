@@ -122,7 +122,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
       setIsCooldown(true);
       setTimeout(() => {
         setIsCooldown(false);
-      }, 500); // 0.5 seconds cooldown
+      }, 200); // 0.5 seconds cooldown
     }
   };
 
