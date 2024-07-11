@@ -1,6 +1,12 @@
 // Animal_ball.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Hamster } from './Rectangle';
+import ham1 from '../img/hamster.png';
+import ham2 from '../img/animal_hamster6.png';
+import ham3 from '../img/animal_hamster5.png';
+import ham4 from '../img/animal_hamster4.png';
+import ham5 from '../img/animal_hamster3.png';
+import ham6 from '../img/animal_hamster2.png';
 
 interface AnimalBallProps {
   owlLeft: number;
@@ -167,17 +173,17 @@ export const useBallMovement = (
 
 const getScoreIncrement = (image: string, images: string[]) => {
   switch (image) {
-    case images[0]:
+    case ham1:
       return 50;
-    case images[1]:
+    case ham2:
       return 60;
-    case images[2]:
+    case ham3:
       return 70;
-    case images[3]:
+    case ham4:
       return 80;
-    case images[4]:
+    case ham5:
       return 90;
-    case images[5]:
+    case ham6:
       return -50;
     default:
       return 0;
