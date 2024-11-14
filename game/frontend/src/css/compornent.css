@@ -1,0 +1,223 @@
+/* background.tsx (背景) */
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .top-half {
+    height: 30%;
+    background-color: #FFDAB9; /* 桃色 */
+  }
+  
+  .bottom-half {
+    height: 70%;
+    background-color: #FFE4B5; /* 薄い桃色 */
+  }
+  
+/* score.tsx (スコア表示) */
+  .score-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+ .score-svg {
+  display: block;
+}
+
+.red-circle {
+  fill: #CB7878;
+}
+
+
+/* ranking.tsx (ランキング表示) */
+.rounded-rectangle {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 200px;
+    height: 350px;
+    background-color: #BCBCBC;
+    border-radius: 10px; /* 四隅の丸み */
+    font-size: 34px;
+    text-align: center;
+ }
+
+ .rank {
+  font-size: 32px;
+  text-decoration: underline;
+  line-height:2.5em;
+ }
+
+/* next.css(次のブロック表示) */
+.circle {
+  position: absolute;
+  top: 1%;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #CB7878;
+  display: flex;
+  justify-content: center;
+}
+
+.triangle {
+  position: absolute;
+  top: 80px; /* Adjust the position as needed */
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid blue; /* Change to border-bottom for an inverted triangle */
+}
+
+.text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: black;
+}
+
+/* next_block.tsx (ブロックの一覧と進化先の表示) */
+
+.donut{
+  position: absolute;
+  background-color: rgb(250, 160, 252);
+  height: 50%;
+  width: 20%;
+  top:40%;
+  left:68%;
+  border-radius: 10px;
+}
+
+
+
+/* Rectangle.tsx (ボールが入るかごの表示) */
+
+.basket {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  width: 450px;
+  height: 500px;
+  border-radius:1.5% ;
+  background-color: rgb(255, 255, 255);
+  /* border-radius: 20px; */
+  color: black;
+  font-size: 20px;
+  transform: translate(-50%, -50%) translateX(15px);
+}
+
+/* Allowコンポーネント曲線矢印 */
+.curved-arrow {
+  width: 200px;
+  height: 200px;
+  border-top: 5px solid #593636;
+  border-right: 0px solid #000;
+  border-left: 0px solid #000;
+  border-radius: 50% 50% 0 0%;
+  animation: arrow-curve 3s infinite linear;
+}
+
+@keyframes arrow-curve {
+  0% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(405deg);
+  }
+}
+/* スタート画面*/
+.ham0 {
+  animation: ham0 6s infinite;
+  animation-delay: 0s;
+}
+
+.ham1 {
+  animation: ham1 6s infinite;
+  animation-delay: 6s;
+}
+
+.ham2 {
+  animation: ham2 6s infinite;
+  animation-delay: 12s;
+}
+
+.ham3 {
+  animation: ham3 6s infinite;
+  animation-delay: 18s;
+}
+
+.ham4 {
+  animation: ham4 6s infinite;
+  animation-delay: 24s;
+}
+
+.ham5 {
+  animation: ham5 6s infinite;
+  animation-delay: 30s;
+}
+.hamtotal {
+  margin-top: 8%;
+  margin-left: 27%;
+  margin-right: auto;
+  width: 100vh; /* または任意の幅を指定 */
+  display: block; /* これはブロック要素であることを確認 */
+}
+@keyframes ham0 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham1 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham2 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham3 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham4 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+@keyframes ham5 {
+  0%, 100% {
+    top: 0px;
+  }
+  50% {
+    top: -100px;
+  }
+}
+.mei{
+  font-size:6em;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-left: 30%;
+}
