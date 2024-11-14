@@ -112,7 +112,7 @@ def submit():
         else:
             return  jsonify({'success': False}),201
 # フロントエンドでサインアップを押された場合にinput1,2データを取得
-@app.route('/submit_add',methods=['POST'])
+@app.route('/submit/add',methods=['POST'])
 def submit_add():
     # キー生成
     key = Fernet.generate_key()
@@ -134,15 +134,18 @@ def push():
     cur = mysql.connection.cursor()
     data = request.json
     score = data['data'][0]
-    {'success': False}
-    print(data['data'][0])
-    # return jsonify({'success': True, 'name': score}), 200
-    cur.execute('INSERT INTO scores(user_id,score) VALUES(%s, %s)', (data['data'][1],data['data'][0]))
-    mysql.connection.commit()
-    if cur.rowcount == 1:
-        return jsonify({'success': True, 'score': data['data'][0]}), 200
+    if(score <= 30000 or score % 2 == 0):
+        {'success': False}
+        print(data['data'][0])
+        # return jsonify({'success': True, 'name': score}), 200
+        cur.execute('INSERT INTO scores(user_id,score) VALUES(%s, %s)', (data['data'][1],data['data'][0]))
+        mysql.connection.commit()
+        if cur.rowcount == 1:
+            return jsonify({'success': True, 'score': data['data'][0]}), 200
+        else:
+            return jsonify({'success': False}), 210
     else:
-        return jsonify({'success': False}), 210
+        return jsonify({'success': False}), 211
 
     
     
