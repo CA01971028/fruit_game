@@ -185,9 +185,9 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
         )
       ))} {/* 各ハムスターのAnimal_ballコンポーネントをレンダリング */}
       {/* <input type="button" value="スコアを送信" onClick={submit}/> */}
-      <Button variant="contained" onClick={submit} sx={{position:'absolute',marginTop:'-40%',marginLeft:'20%'}} >
+      {/* <Button variant="contained" onClick={submit} sx={{position:'absolute',marginTop:'-40%',marginLeft:'20%'}} >
         スコアを保存
-      </Button>
+      </Button> */}
     </>
   );
 }

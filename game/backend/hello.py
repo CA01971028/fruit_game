@@ -53,13 +53,23 @@ def get_scores():
     return jsonify(scores = scores)
 @app.route('/api/data/best',methods=['GET'])
 def get_score():
+    # cur = mysql.connection.cursor()
+    # #SELECT文でscoreのみを取得
+    # cur.execute("SELECT MAX(score) AS max_score FROM scores;")
+    # data = cur.fetchall()
+    # cur.close()
+    # # score = 
+    # return jsonify(score = data)
     cur = mysql.connection.cursor()
-    #SELECT文でscoreのみを取得
-    cur.execute("SELECT MAX(score) AS max_score FROM scores;")
-    data = cur.fetchall()
+    cur.execute("SELECT MAX(score) FROM scores;")
+    # fetchone()で単一のレコードを取得し、[0]でその中の最初の値を取得する
+    result = cur.fetchone() 
     cur.close()
-    # score = 
-    return jsonify(score = data)
+    
+    # もしスコアが一つもなければnull、あればその値を返す
+    max_score = result[0] if result else None
+    
+    return jsonify(score=max_score)
 # @app.route('/api/data/test',methods=['GET'])
 # def get_dbdata():
 #     cur = mysql.connection.cursor()
@@ -131,24 +141,39 @@ def submit_add():
 
 @app.route('/score', methods=['POST'])
 def push():
-    cur = mysql.connection.cursor()
-    data = request.json
-    score = data['data'][0]
-    if(score <= 30000 or score % 2 == 0):
-        {'success': False}
-        print(data['data'][0])
-        # return jsonify({'success': True, 'name': score}), 200
-        cur.execute('INSERT INTO scores(user_id,score) VALUES(%s, %s)', (data['data'][1],data['data'][0]))
-        mysql.connection.commit()
-        if cur.rowcount == 1:
-            return jsonify({'success': True, 'score': data['data'][0]}), 200
-        else:
-            return jsonify({'success': False}), 210
-    else:
-        return jsonify({'success': False}), 211
+    print("--- /score APIが呼び出されました ---")
+    # cur変数をtryブロックの外で初期化
+    cur = None
+    try:
+        # 1. データを受け取る
+        data = request.json
+        score = data['data'][0]
+        print(f"受け取ったスコア: {score}")
 
-    
-    
+        # 2. データベースに接続して保存する
+        cur = mysql.connection.cursor()
+        cur.execute('INSERT INTO scores(score) VALUES(%s)', (score,))
+        mysql.connection.commit()
+
+        # 3. 成功したか確認して結果を返す
+        if cur.rowcount == 1:
+            print("--- データベースへの保存成功 ---")
+            return jsonify({'success': True, 'score': score}), 200
+        else:
+            # 念のため、書き込みに失敗した場合のログ
+            print("--- データベースへの保存失敗 ---")
+            return jsonify({'success': False, 'message': 'Insert failed'}), 500
+
+    except Exception as e:
+        # 処理中に何らかのエラーが発生した場合
+        print(f"--- エラー発生: {e} ---")
+        return jsonify({'success': False, 'message': 'An error occurred'}), 500
+    finally:
+        # tryブロックが成功してもエラーになっても、必ず最後に実行
+        if cur:
+            cur.close()
+            print("--- データベース接続をクローズしました ---")
+
 # 名前の表示
 @app.route('/api/data/name',methods = ['GET'])
 def get_dbname():
