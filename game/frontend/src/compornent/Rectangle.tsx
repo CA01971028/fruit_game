@@ -163,7 +163,7 @@ const Rectangle: React.FC<RectangleProps> = ({ getRandomNumber, Changecurrent, c
         alt="フクロウ"
         height={owlSize}
         width={owlSize}
-        sx={{ position: 'absolute', top: '10px', left: `${owlLeft}px` }}
+        sx={{ position: 'absolute', top: '80px', left: `${owlLeft}px` }}
       /> {/* フクロウの画像を表示 */}
 
       {Object.values(hamsters).map(hamster => (
