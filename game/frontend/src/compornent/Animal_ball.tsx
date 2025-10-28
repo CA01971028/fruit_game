@@ -223,7 +223,7 @@ const getScoreIncrement = (image: string, images: string[]) => {
     case ham5:
       return 90;
     case ham6:
-      return -200;
+      return -100;
     default:
       return 0;
   }

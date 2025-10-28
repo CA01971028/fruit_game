@@ -114,7 +114,7 @@ function next_block() {
             left: "42%",
           }}
         >
-          :-200<strong>PT</strong>
+          :-100<strong>PT</strong>
         </Box>
       </span>
     </>
